@@ -12,7 +12,54 @@
 <body>
     <h1>Virtua Drums</h1>
     <a id="disp">Computador - PC</a>    
-    <div class="drum-kit">
+        <section class="eq-panel" aria-label="Equalizador">
+        <div class="eq-band">
+            <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
+            <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+        </div>
+        <div class="eq-band">
+            <label for="midGain">Médios <span id="midValue">0</span>dB</label>
+            <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+        </div>
+        <div class="eq-band">
+            <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
+            <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
+        </div>
+    </section>
+    <section class="eq-panel" aria-label="Reverb">
+        <div class="eq-band">
+            <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
+            <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
+        </div>
+        <div class="eq-band">
+            <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
+            <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+        </div>
+    </section>
+    <article style="position: absolute;">
+        <table class="keymap-table">
+            <thead>
+                <tr>
+                    <th>Instrumento</th>
+                    <th>Tecla</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Caixa</td><td>a ou l</td></tr>
+                <tr><td>Bumbo</td><td>c</td></tr>
+                <tr><td>Surdo</td><td>n</td></tr>
+                <tr><td>Tom</td><td>m</td></tr>
+                <tr><td>Chimbau</td><td>k</td></tr>
+                <tr><td>ChimbauA</td><td>I</td></tr>
+                <tr><td>Condução</td><td>,</td></tr>
+                <tr><td>Sino</td><td>.</td></tr>
+                <tr><td>Crash</td><td>o</td></tr>
+                <tr><td>Ataque</td><td>p</td></tr>
+                <tr><td>Bloco</td><td>z</td></tr>
+            </tbody>
+        </table>
+    </article>
+    <article class="drum-kit">
         
         <span id="caixa" style="background-image: url(./imgs/caixa.png)" class="drum img" data-key="a">
             <small class="label">a ou l</small>
@@ -55,7 +102,7 @@
         <span id="bloco" style="background-image: url(./imgs/bloco.png)" class="drum img" data-key="z">
             <small class="label bi-keyboard">z</small>
         </span>
-    </div>
+    </article>
     <script type="module" src="./js/index.mjs"></script>
 </body>
 </html>

@@ -34,19 +34,17 @@
 }
 
 #chimbauA{    
-    margin-top:14vh;
-    transform: scale(0.8);
-    margin-right:20vh;
-    z-index:1;
-
+    margin-top:13vh;
+    margin-right:25vh;
+    z-index:2;
     
 }
 
 #chimbau{
-    z-index:2;
-    margin-top:15vh;
-    margin-right:20vh;
-
+    z-index: 3;
+    margin-top: 18vh;
+    margin-right: 24vh;
+    transform: scale(1.5);
     
 }
 
