@@ -1,4 +1,7 @@
-    body {
+
+@import url('elems.css');
+
+body {
             background: #222;
             color: #fff;
             font-family: sans-serif;
@@ -11,16 +14,31 @@
             gap: 20px;
             margin-top: 60px;
         }
+        
         .drum {
-            background: #444;
+
+              display: flex;         /* Permite definir largura e altura */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden; 
+
+
+            user-select: none;  
+            
+              clip-path: ellipse(50% 40% at 50% 50%); 
             border: none;
             border-radius: 10px;
-            width: 150px;
-            height: 150px;
+            width: 40vh;
+            height: 40vh;
             font-size: 2em;
             color: #fff;
             cursor: pointer;
-            box-shadow: 0 4px #111;
+
+            &:hover{
+                z-index: 10;
+            }
+
             transition: background 0.2s;
         }
    
@@ -30,16 +48,22 @@
 
 
    .drum-kit >span{
+
+     background-size: cover;
     
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative;
-    background-size: 4em;
-    background-position: center;
+    /* Cria uma área de clique circular */
+    border-radius: 50%; 
+
+        
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-size: 40vh;
+        background-position: center;
    }
    
    span > small{
-      background-color: #000000a8;
+
     position: absolute;
     border-radius: 0 0 7px 7px;
     bottom: 0;
@@ -50,7 +74,8 @@
 
    }
 
-   span.active{
-      background-color: #333;
-    
+   span.active, span:hover{
+      /*background-color: #333;*/
+    filter:drop-shadow(1px 4px 3px rgb(192, 79, 27));
+    z-index: 10;
    }

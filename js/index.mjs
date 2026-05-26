@@ -36,8 +36,14 @@ function animateButton(selector) {
 
 function playInstrument(name) {
     animateButton(name);
-    console.log(`Playing instrument: ${name}`);
+    //console.log(`Playing instrument: ${name}`);
     play(`./mp3/${name}.mp3`);
+
+    if(name.startsWith('chimb')){
+        document.getElementById('chimbau').style.opacity = 0;
+
+        setTimeout(() => document.getElementById('chimbauA').style.opacity = 1, 100);
+    }
 }
 
 const keyToInstrument = {

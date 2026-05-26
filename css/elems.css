@@ -1,0 +1,72 @@
+
+#caixa{
+    
+    margin-top: 24vh;
+    z-index: 6;
+    margin-right:36vh;
+    
+}
+
+#bumbo{
+    z-index:3;
+    margin-top: 23vh;
+    transform: scale(1.2);
+}
+
+#surdo{
+    margin-left: 35vh;
+    margin-top: 20vh;
+    z-index: 2;
+}
+
+#tom{
+    margin-right: 7vh;
+    margin-top:9vh;
+    z-index:2;
+}
+
+#conducao, #sino{
+    margin-left: 27vh;
+
+    transform: scale(1.6) translate(-4vh);
+    margin-top: 16vh;
+    z-index: 1;
+}
+
+#chimbauA{    
+    margin-top:14vh;
+    transform: scale(0.8);
+    margin-right:20vh;
+    z-index:1;
+
+    
+}
+
+#chimbau{
+    z-index:2;
+    margin-top:15vh;
+    margin-right:20vh;
+
+    
+}
+
+#crash{
+         margin-top: 12vh;
+        margin-right: 50vh;;
+    transform: scale(1.5);
+    z-index: 1;
+}
+
+#ataque{
+    transform: scale(1.5);
+    z-index: 0;
+    margin-left: 40vh;
+    margin-top: 8vh;
+}
+
+#bloco{
+    margin-right: 50vh;
+    transform: rotate(45deg) scale(0.5);
+    margin-top: 8vh;
+    z-index: 7;
+}
