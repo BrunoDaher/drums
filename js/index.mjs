@@ -3,6 +3,7 @@ const keyToInstrument = {
     l: 'caixa',
     c: 'bumbo',
     k: 'chimbau',
+    s: 'chimbau',
     i: 'chimbauA',
     o: 'crash',
     p: 'ataque',
@@ -16,13 +17,40 @@ const keyToInstrument = {
 let audioContext;
 let eqNodes;
 let reverbNodes;
+const audioBuffers = {}; // Cache para latência zero
 
 function createAudioContext() {
     if (!audioContext) {
-        audioContext = window._safariAudioContext || new (window.AudioContext || window.webkitAudioContext)();
-        window._safariAudioContext = audioContext;
+        // Forçar 44.1kHz ajuda muito na estabilidade do iOS
+        audioContext = new (window.AudioContext || window.webkitAudioContext)({
+            sampleRate: 44100 
+        });
     }
     return audioContext;
+}
+
+
+
+// Carrega todos os sons na inicialização
+async function preloadSamples() {
+    const ctx = createAudioContext();
+    const uniqueInstruments = [...new Set(Object.values(keyToInstrument))];
+    
+    //console.log("Iniciando pré-carregamento dos samples...");
+    
+    const loadTasks = uniqueInstruments.map(async (name) => {
+        try {
+            const response = await fetch(`./mp3/${name}.mp3`);
+            const arrayBuffer = await response.arrayBuffer();
+            const decodedData = await ctx.decodeAudioData(arrayBuffer);
+            audioBuffers[name] = decodedData;
+        } catch (err) {
+            console.error(`Erro ao carregar o sample: ${name}`, err);
+        }
+    });
+
+    await Promise.all(loadTasks);
+    //console.log("Samples carregados e decodificados. Pronto para tocar!");
 }
 
 function createImpulseResponse(ctx, duration = 1.2, decay = 2.0) {
@@ -93,128 +121,154 @@ function createReverb(ctx, eqOutput) {
     return reverbNodes;
 }
 
-function updateEqValues() {
-    if (!eqNodes) return;
+function updateControlValues() {
+    if (!eqNodes || !reverbNodes) return;
 
     const lowGain = Number(document.getElementById('lowGain')?.value || 0);
     const midGain = Number(document.getElementById('midGain')?.value || 0);
     const highGain = Number(document.getElementById('highGain')?.value || 0);
+    const wetValue = Number(document.getElementById('reverbWet')?.value || 0);
 
     eqNodes.low.gain.value = lowGain;
     eqNodes.mid.gain.value = midGain;
     eqNodes.high.gain.value = highGain;
 
-    document.getElementById('lowValue').innerText = lowGain;
-    document.getElementById('midValue').innerText = midGain;
-    document.getElementById('highValue').innerText = highGain;
-}
-
-function updateReverbValues() {
-    if (!reverbNodes) return;
-
-    const wetValue = Number(document.getElementById('reverbWet')?.value || 0);
-    const durationValue = Number(document.getElementById('reverbDuration')?.value || 1.2);
-
-    if (reverbNodes.duration !== durationValue) {
-        reverbNodes.convolver.buffer = createImpulseResponse(audioContext, durationValue, 2.0);
-        reverbNodes.duration = durationValue;
-    }
-
     reverbNodes.wetGain.gain.value = wetValue / 100;
-    reverbNodes.dryGain.gain.value = 1 - wetValue / 100;
+    reverbNodes.dryGain.gain.value = 1 - (wetValue / 100);
 
-    document.getElementById('reverbWetValue').innerText = wetValue;
-    document.getElementById('reverbDurationValue').innerText = durationValue.toFixed(1);
+    if (document.getElementById('lowValue')) document.getElementById('lowValue').innerText = lowGain;
+    if (document.getElementById('midValue')) document.getElementById('midValue').innerText = midGain;
+    if (document.getElementById('highValue')) document.getElementById('highValue').innerText = highGain;
+    if (document.getElementById('reverbWetValue')) document.getElementById('reverbWetValue').innerText = wetValue;
 }
 
-function updateControlValues() {
-    updateEqValues();
-    updateReverbValues();
-}
-
-function animateButton(selector) {
-    const el = document.getElementById(selector);
+function animateButton(name) {
+    const el = document.getElementById(name);
     if (!el) return;
+    //console.log(el)
     el.classList.add('active');
     setTimeout(() => el.classList.remove('active'), 100);
 }
 
-function play(audioUrl) {
+function play(name) {
     const ctx = createAudioContext();
-    const eq = createEqualizer(ctx);
-    const reverb = createReverb(ctx, eq.high);
-    updateControlValues();
+    
+    // Disparo imediato do buffer em cache
+    if (audioBuffers[name]) {
+        const eq = createEqualizer(ctx);
+        createReverb(ctx, eq.high);
+        updateControlValues();
 
-    fetch(audioUrl)
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
-        .then(audioBuffer => {
-            const source = ctx.createBufferSource();
-            source.buffer = audioBuffer;
-            source.connect(eq.low);
-            source.start(0);
-        })
-        .catch(err => {
-            const audioElement = new window.Audio(audioUrl);
-            audioElement.currentTime = 0;
-            audioElement.play();
-        });
+        const source = ctx.createBufferSource();
+        source.buffer = audioBuffers[name];
+        source.connect(eq.low);
+
+        if (ctx.state === 'suspended') ctx.resume();
+        source.start(0);
+    }
 }
 
 function playInstrument(name) {
     animateButton(name);
-    play(`./mp3/${name}.mp3`);
+    play(name);
 }
 
 function initEqControls() {
     ['low', 'mid', 'high'].forEach((band) => {
         const input = document.getElementById(`${band}Gain`);
-        if (input) {
-            input.addEventListener('input', updateControlValues);
-        }
+        if (input) input.addEventListener('input', updateControlValues);
     });
 
     const reverbWet = document.getElementById('reverbWet');
     const reverbDuration = document.getElementById('reverbDuration');
+    
     if (reverbWet) reverbWet.addEventListener('input', updateControlValues);
-    if (reverbDuration) reverbDuration.addEventListener('input', updateControlValues);
-
-    updateControlValues();
+    if (reverbDuration) {
+        reverbDuration.addEventListener('input', () => {
+            if (reverbNodes) {
+                const duration = Number(reverbDuration.value);
+                reverbNodes.convolver.buffer = createImpulseResponse(audioContext, duration, 2.0);
+                document.getElementById('reverbDurationValue').innerText = duration.toFixed(1);
+            }
+        });
+    }
 }
 
 function setupInputHandlers() {
-    if (!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        document.addEventListener('keydown', (event) => {
-            const instrument = keyToInstrument[event.key.toLowerCase()];
-            if (instrument) {
-                playInstrument(instrument);
-            }
-        });
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-        document.querySelectorAll('.drum').forEach((el) => {
-            el.addEventListener('click', () => {
-                playInstrument(el.id);
+    // Dentro do else (Mobile) do setupInputHandlers
+document.addEventListener('touchstart', function init() {
+    const ctx = createAudioContext();
+    
+    // Toca um silêncio absoluto para abrir o canal de hardware
+    const buffer = ctx.createBuffer(1, 1, 22050);
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    source.start(0);
+    
+    if (ctx.state === 'suspended') ctx.resume();
+    
+    // Agora que o canal abriu, tenta carregar se ainda não carregou
+    if (Object.keys(audioBuffers).length === 0) {
+        preloadSamples();
+    }
+    
+    document.removeEventListener('touchstart', init);
+}, false);
+
+        if (!isMobile) {
+            document.addEventListener('keydown', (event) => {
+                const instrument = keyToInstrument[event.key.toLowerCase()];
+                if (instrument) playInstrument(instrument);
             });
-        });
-    } else {
-        createAudioContext();
-        document.getElementById('disp').innerText = 'Celular ou Tablet';
 
-        document.addEventListener('touchstart', () => {
-            if (audioContext?.state === 'suspended') {
-                audioContext.resume();
+            document.querySelectorAll('.drum').forEach((el) => {
+                el.addEventListener('mousedown', () => playInstrument(el.id));
+            });
+        }   else {
+        document.getElementById('disp').className = 'bi-phone';
+        document.getElementById('disp').innerText = 'Mobile';
+
+        // Função para destravar o áudio no primeiro toque em QUALQUER lugar
+        const unlockAudio = () => {
+            const ctx = createAudioContext();
+            if (ctx.state === 'suspended') {
+                ctx.resume();
             }
-        });
+            
+            // Toca um buffer vazio rápido só para o iOS entender que o canal está aberto
+            const buffer = ctx.createBuffer(1, 1, 22050);
+            const source = ctx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(ctx.destination);
+            source.start(0);
+
+            // Remove os listeners de "destrava" após o primeiro sucesso
+            window.removeEventListener('touchstart', unlockAudio);
+            window.removeEventListener('mousedown', unlockAudio);
+        };
+
+        window.addEventListener('touchstart', unlockAudio);
+        window.addEventListener('mousedown', unlockAudio);
 
         document.querySelectorAll('.drum').forEach((el) => {
             el.addEventListener('touchstart', (e) => {
                 e.preventDefault();
+                // Garante que o contexto está ativo antes de tocar
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
                 playInstrument(el.id);
             }, { passive: false });
         });
     }
 }
 
-console.log(navigator.userAgent);
+
+
+// Inicialização Sequencial
 initEqControls();
 setupInputHandlers();
+preloadSamples(); // Começa a carregar assim que o script roda

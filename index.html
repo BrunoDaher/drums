@@ -2,107 +2,163 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Bateria Virtual</title>
+    <title>BunnyDrum</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
         
-<link rel="icon" type="image/png" href="vendor/favicon.png" /></head>
+<link rel="icon" type="image/png" href="vendor/favico.png" /></head>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    <h1>Virtua Drums</h1>
-    <a id="disp">Computador - PC</a>    
-        <section class="eq-panel" aria-label="Equalizador">
-        <div class="eq-band">
-            <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
-            <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
-        </div>
-        <div class="eq-band">
-            <label for="midGain">Médios <span id="midValue">0</span>dB</label>
-            <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
-        </div>
-        <div class="eq-band">
-            <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
-            <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
-        </div>
-    </section>
-    <section class="eq-panel" aria-label="Reverb">
-        <div class="eq-band">
-            <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
-            <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
-        </div>
-        <div class="eq-band">
-            <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
-            <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
-        </div>
-    </section>
-    <article style="position: absolute;">
-        <table class="keymap-table">
-            <thead>
-                <tr>
-                    <th>Instrumento</th>
-                    <th>Tecla</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Caixa</td><td>a ou l</td></tr>
-                <tr><td>Bumbo</td><td>c</td></tr>
-                <tr><td>Surdo</td><td>n</td></tr>
-                <tr><td>Tom</td><td>m</td></tr>
-                <tr><td>Chimbau</td><td>k</td></tr>
-                <tr><td>ChimbauA</td><td>I</td></tr>
-                <tr><td>Condução</td><td>,</td></tr>
-                <tr><td>Sino</td><td>.</td></tr>
-                <tr><td>Crash</td><td>o</td></tr>
-                <tr><td>Ataque</td><td>p</td></tr>
-                <tr><td>Bloco</td><td>z</td></tr>
-            </tbody>
-        </table>
-    </article>
-    <article class="drum-kit">
-        
-        <span id="caixa" style="background-image: url(./imgs/caixa.png)" class="drum img" data-key="a">
-            <small class="label">a ou l</small>
-        </span>
-        <span id="bumbo" style="background-image: url(./imgs/bumbo.png)" class="drum img" data-key="s">
-            <small class="label">c</small>
-        </span>
 
-        <span id="surdo" style="background-image: url(./imgs/surdo.png)" class="drum img" data-key="n">
-            <small class="label">n</small>
-        </span>
 
-        <span id="tom" style="background-image: url(./imgs/tom.png)" class="drum img" data-key="m">
-            <small class="label">m</small>
-        </span>
 
-        <span id="chimbau" style="background-image: url(./imgs/chimbau.png)" class="drum img" data-key="i">
-            <small class="label">k</small>
-        </span>
-        <span id="chimbauA" style="background-image: url(./imgs/chimbauA.png)" class="drum img" data-key="i">
-            <small class="label">I</small>
-        </span>
+<body class="flex-column justContBetween ">
+    
+    <header class="main-header flex justBetween">    
+            <span class="flex-row" style="align-items:center;gap:1vh">
+                <img src ="vendor/favico.png"class='logo'  alt="logo">
+                Bunny Drums
+            </span>
+            <span id="disp" class="bi-laptop" style="font-size: 1em">
+               PC - Notebook
+            </span>
 
-        <span id="conducao" style="background-image: url(./imgs/conducao.png)" class="drum img" data-key=",">
-            <small class="label">,</small>
-        </span>
+            
 
-        <span id="sino" style="background-image: url(./imgs/conducao.png)" class="drum img" data-key=".">
-            <small class="label">.</small>
-        </span>
 
-        <span id="crash" style="background-image: url(./imgs/crash.png)" class="drum img" data-key="o">
-            <small class="label">o</small>
-        </span>
+    </header>
+    
+    <span id="advise" class="bi-phone-fill flex" style="font-size: 1em; gap:1vh">
+                Vire o celular na horizontal
+    </span>
+     
+     <!--Teclas-->
+    
+    <main class="flex-row justCenter">
 
-        <span id="ataque" style="background-image: url(./imgs/ataque.png)" class="drum img" data-key="p">
-            <small class="label bi-keyboard">p</small>
-        </span>
-        
-        <span id="bloco" style="background-image: url(./imgs/bloco.png)" class="drum img" data-key="z">
-            <small class="label bi-keyboard">z</small>
-        </span>
-    </article>
+        <aside id="keys-container" class="flex-column">
+                
+            <div class="keymap-list" aria-label="Mapa de teclas">
+                <div class="keymap-header keymap-row">
+                    <div class="label">Inst</div>
+                    <div class="key">Tecla</div>
+                </div>
+                <div class="keymap-row"><div class="label">Caixa</div><div class="key">a ou l</div></div>
+                <div class="keymap-row"><div class="label">Bumbo</div><div class="key">c</div></div>
+                <div class="keymap-row"><div class="label">Surdo</div><div class="key">n</div></div>
+                <div class="keymap-row"><div class="label">Tom</div><div class="key">m</div></div>
+                <div class="keymap-row"><div class="label">Chimbau</div><div class="key">k</div></div>
+                <div class="keymap-row"><div class="label">ChimbauA</div><div class="key">I</div></div>
+                <div class="keymap-row"><div class="label">Condução</div><div class="key">,</div></div>
+                <div class="keymap-row"><div class="label">Sino</div><div class="key">.</div></div>
+                <div class="keymap-row"><div class="label">Crash</div><div class="key">o</div></div>
+                <div class="keymap-row"><div class="label">Ataque</div><div class="key">p</div></div>
+                <div class="keymap-row"><div class="label">Bloco</div><div class="key">z</div></div>
+            </div>
+        </aside>
+
+        <article style="margin:2vh">
+            <span>Modelos </span>
+            <section class="flex-column justBetween" style="gap:2vh; padding:1vh">
+                <div class="card ">
+                    <h3>Thor</h3>
+                    <p>Descrição do módulo 1.</p>
+                    <button>Go</button>
+                </div>
+                <div class="card ">
+                    <h3>Marreta</h3>
+                    <p>Descrição do módulo 1.</p>
+                    <button>Go</button>
+                </div>
+                <div class="card ">
+                    <h3>Espiga</h3>
+                    <p>Descrição do módulo 1.</p>
+                    <button>Go</button>
+                </div>
+
+            </section>
+        </article>
+    
+    <!--batera-->
+        <article id="batera" class="drum-kit flex justCenter" 
+            style="width: 100%; position:relative;" >
+            
+            <span id="caixa" style="background-image: url(./imgs/caixa.png)" class="drum img" data-key="a">
+                <small class="label">a ou l</small>
+            </span>
+            <span id="bumbo" style="background-image: url(./imgs/bumbo.png)" class="drum img" data-key="s">
+                <small class="label">c</small>
+            </span>
+
+            <span id="surdo" style="background-image: url(./imgs/surdo.png)" class="drum img" data-key="n">
+                <small class="label">n</small>
+            </span>
+
+            <span id="tom" style="background-image: url(./imgs/tom.png)" class="drum img" data-key="m">
+                <small class="label">m</small>
+            </span>
+
+            <span id="chimbau" style="background-image: url(./imgs/chimbau.png)" class="drum img" data-key="i">
+                <small class="label">k</small>
+            </span>
+            <span id="chimbauA" style="background-image: url(./imgs/chimbauOp.png)" class="drum img" data-key="i">
+                <small class="label">I</small>
+            </span>
+
+            <span id="conducao" style="background-image: url(./imgs/conducao.png)" class="drum img" data-key=",">
+                <small class="label">,</small>
+            </span>
+
+            <span id="sino" style="background-image: url(./imgs/conducao.png)" class="drum img" data-key=".">
+                <small class="label">.</small>
+            </span>
+
+            <span id="crash" style="background-image: url(./imgs/crash.png)" class="drum img" data-key="o">
+                <small class="label">o</small>
+            </span>
+
+            <span id="ataque" style="background-image: url(./imgs/ataque.png)" class="drum img" data-key="p">
+                <small class="label bi-keyboard">p</small>
+            </span>
+            
+            <span id="bloco" style="background-image: url(./imgs/bloco.png)" class="drum img" data-key="z">
+                <small class="label bi-keyboard">z</small>
+            </span>
+        </article>
+
+         <aside id="controles" class="eq-container flex-column">
+                <section class="eq-panel flex-column" aria-label="Equalizador">
+                    <div class="eq-band">
+                        <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
+                        <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+                    </div>
+                    <div class="eq-band">
+                        <label for="midGain">Médios <span id="midValue">0</span>dB</label>
+                        <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+                    </div>
+                    <div class="eq-band">
+                        <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
+                        <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
+                    </div>
+                
+                    <div class="eq-band">
+                        <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
+                        <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
+                    </div>
+                    <div class="eq-band">
+                        <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
+                        <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+                    </div>
+                </section>
+        </aside>
+
+    </main>
+
+    <footer class="flex" >
+        Bruno Oliveira
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    
     <script type="module" src="./js/index.mjs"></script>
 </body>
 </html>

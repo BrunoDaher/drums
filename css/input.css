@@ -1,0 +1,77 @@
+input[type="range" i] {
+    appearance: none;
+
+    height: clamp(1.5rem, 2.8vw, 2rem);
+
+     -webkit-appearance: none; /* Remove o estilo padrão no Chrome/Safari */
+  appearance: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  background: transparent; /* Deixa o fundo transparente */
+
+}
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  background: transparent;
+  outline: none;
+}
+
+/* --- O BOTÃO (FADER) --- */
+
+/* Chrome, Safari e Edge */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: clamp(1.3rem, 2.6vw, 1.8rem);
+  width: clamp(0.6rem, 1.2vw, 0.9rem);
+  border-radius: 2px;
+  background: #1a1a1a; /* Cor cinza escuro de mesa */
+  /* Cria a linha central branca clássica do fader */
+  border-left: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
+  border-right: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
+  box-shadow: 
+    inset 0 0 0 2px #ffffff, /* Linha branca no meio */
+    0 3px 6px rgba(0,0,0,0.4); /* Sombra para dar volume */
+  cursor: grab;
+  margin-top: clamp(-0.7rem, -1.2vw, -0.9rem);  /* Ajuste para centralizar no trilho */
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+/* Firefox */
+input[type=range]::-moz-range-thumb {
+  height: clamp(1.3rem, 2.6vw, 1.8rem);
+  width: clamp(0.6rem, 1.2vw, 0.9rem);
+  border-radius: 2px;
+  background: #1a1a1a;
+  border-left: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
+  border-right: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
+  box-shadow: inset 0 0 0 2px #ffffff, 0 3px 6px rgba(0,0,0,0.4);
+  cursor: grab;
+}
+
+/* --- O TRILHO (CORTES NA MESA) --- */
+
+/* Chrome, Safari e Edge */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: clamp(0.35rem, 0.8vw, 0.5rem);
+  background: #333; /* Cor da fenda escura */
+  border-radius: 4px;
+  border: 1px solid #555;
+}
+
+/* Firefox */
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: clamp(0.35rem, 0.8vw, 0.5rem);
+  background: #333;
+  border-radius: 4px;
+  border: 1px solid #555;
+}

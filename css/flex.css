@@ -1,0 +1,95 @@
+
+/* Utilitários para Reuso */
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.justBetween {
+    justify-content: space-between;
+}
+
+.justCenter {
+    justify-content: center;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
+.flex-row.wrap > article{
+    
+    flex: 1 1 auto;
+
+}
+
+
+.row-md{
+      @media (min-width:768px) {
+        flex-direction: row !important;
+    }
+}
+
+.col-sm{
+    @media (max-width:768px) {
+        flex-direction: column !important;
+    }
+}
+
+.col-port{
+
+    @media (orientation: portrait)and (max-width:1024px) {
+        flex-direction: column !important;
+    }
+}
+
+
+.col-md{
+     @media (min-width:768px) and (max-width:2024px) {
+        flex-direction: column !important;
+    }
+}
+
+.row-lg{
+    @media (min-width:1524px) {
+        flex-direction: row !important;
+    }
+}
+
+.row-sm{
+    @media (max-width:480px) {
+        flex-direction: row !important;
+    }
+}
+
+.flex-column {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.gap-lg {
+    gap: var(--space-lg);
+}
+
+.gap-sm{
+    gap: var(--space-sm);
+}
+
+.mb-lg {
+    margin-bottom: var(--space-lg);
+}
+
+.selfEnd{
+    align-self: self-end;
+}
+
+.selfStart{
+    align-self: self-start;
+}

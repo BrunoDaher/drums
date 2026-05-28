@@ -1,11 +1,20 @@
 
+
+#batera
+{
+    background: linear-gradient(45deg, black, #343934);
+}
+
+
 #caixa{
     
-    margin-top: 24vh;
+    margin-top: 30vh;
     z-index: 6;
-    margin-right:36vh;
+    margin-right:40vh;
     
 }
+
+
 
 #bumbo{
     z-index:3;
@@ -14,39 +23,88 @@
 }
 
 #surdo{
-    margin-left: 35vh;
-    margin-top: 20vh;
+    margin-left: 46vh;
+    margin-top: 25vh;
     z-index: 2;
 }
 
 #tom{
     margin-right: 7vh;
-    margin-top:9vh;
+    margin-top:0vh;
     z-index:2;
 }
 
 #conducao, #sino{
     margin-left: 27vh;
 
-    transform: scale(1.6) translate(-4vh);
+    transform: scale(1.6) translate(-2vh); 
     margin-top: 16vh;
     z-index: 1;
 }
 
 #chimbauA{    
-    margin-top:13vh;
+
+    opacity: 0;
+    margin-top:20vh;
     margin-right:25vh;
+     transform: scale(1.2);
     z-index:2;
+}
+
+.card{
+
+    width:30vh;
+    background-color: #333;
+    border-radius: 1vh;
+    padding: 2vh;
+    font-size: 1rem;
+    font-family: serif;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px 1px #041019;
+}
+
+
+
+#batera{
     
+    &:has(#chimbauA.active)
+    {
+        #chimbau{
+            opacity: 0;
+        }
+         #chimbauA{
+            opacity: 1;
+            transition: all 0.1s;
+        }
+    }
+
+    &:has(#chimbau.active)
+    {
+        #chimbauA {
+            opacity: 0;
+            transition: all 0.1s;
+        }
+    }
 }
 
 #chimbau{
-    z-index: 3;
+    z-index: 1;
     margin-top: 18vh;
     margin-right: 24vh;
-    transform: scale(1.5);
-    
+
+   
+
 }
+
+
+
+.logo{
+    width: 32px;
+    height: 32px;
+}
+
+
 
 #crash{
          margin-top: 12vh;
@@ -56,15 +114,116 @@
 }
 
 #ataque{
-    transform: scale(1.5);
+     transform: scale(1.5);
     z-index: 0;
     margin-left: 40vh;
     margin-top: 8vh;
+
+    &.active{
+        animation: ataque 0.1s ease forwards ;
+    }
 }
 
-#bloco{
-    margin-right: 50vh;
-    transform: rotate(45deg) scale(0.5);
-    margin-top: 8vh;
-    z-index: 7;
+@keyframes ataque {
+    0% {
+        transform:scale(1.5) skewX(-11deg)
+    }
+
+    50% {
+        transform:scale(1.5) skewX(0deg);
+    }
+    
+    100% {
+        transform:scale(1.5) skewX(11eg);
+        
+    }
 }
+
+
+#bloco{
+    margin-right: 56vh;
+    transform: rotate(45deg) scale(0.5);
+    margin-top: 6vh;
+    z-index: 3;
+}
+
+   span.active, span:hover{
+      /*background-color: #333;*/
+      scale: 1.006;
+
+          filter: drop-shadow(1px 1px 10px black) saturate(1.5) ;
+          
+    
+    z-index: 10;
+   }
+
+
+       .drum-kit {
+        }
+
+        .eq-container{
+            
+        }
+
+        .eq-panel {
+            
+            width:fit-content;
+            gap: 3vh;
+            padding: 10px 15px;
+            
+        }
+
+        .eq-band {
+            width: 30vh;
+            text-align: left;
+        }
+
+        .eq-band label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.55rem;
+            color: #f0f0f0;
+        }
+
+        .eq-band input {
+            width: 100%;
+        }
+
+        .drum {
+
+            display: flex;         /* Permite definir largura e altura */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden; 
+            user-select: none;
+            border: none;
+            border-radius: 10px;
+            width: 40vh;
+            height: 30vh;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+
+            &:hover{
+                z-index: 10;
+            }
+
+            transition: background 0.2s;
+        }
+   
+     
+   .drum-kit >span{
+
+     background-size: cover;
+    
+    /* Cria uma área de clique circular */
+    border-radius: 50%;
+        
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-size: 40vh;
+        background-position: center;
+   }
+   
