@@ -1,18 +1,45 @@
 const keyToInstrument = {
-    a: 'caixa',
+    a: 'caixa', 
     l: 'caixa',
     c: 'bumbo',
     k: 'chimbau',
     s: 'chimbau',
-    i: 'chimbauA',
-    o: 'crash',
+    i: 'chimbauOp',
+    o: 'tom',
     p: 'ataque',
-    ',': 'conducao',
-    '.': 'sino',
+    u: 'crash',
+    ';': 'conducao',
+    '[': 'sino',
     n: 'surdo',
     m: 'tom',
     z: 'bloco'
 };
+
+
+function instCollection(variacao){
+
+    console.log(1)
+
+    let instCollection = new Set(Object.values(keyToInstrument).flat());
+
+    console.log(variacao)
+    
+    instCollection.forEach(element => {
+        
+        let src = `./imgs/${variacao}/${element}.png`;
+        console.log(src)
+        document.getElementById(element).style.backgroundImage = '';
+        document.getElementById(element).style.backgroundImage = `url(${src})`
+        //document.getElementById(element).setAttribute('background-image',src);
+
+        //console.log(img)
+    });
+    
+}
+
+
+
+
 
 let audioContext;
 let eqNodes;
@@ -197,28 +224,33 @@ function initEqControls() {
 function setupInputHandlers() {
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+    [heavy, normal, light, perc].forEach((el) => {
+        
+        el.addEventListener('click', () => instCollection(el.id));
+    });
+
     // Dentro do else (Mobile) do setupInputHandlers
-document.addEventListener('touchstart', function init() {
-    const ctx = createAudioContext();
-    
-    // Toca um silêncio absoluto para abrir o canal de hardware
-    const buffer = ctx.createBuffer(1, 1, 22050);
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.connect(ctx.destination);
-    source.start(0);
-    
-    if (ctx.state === 'suspended') ctx.resume();
-    
-    // Agora que o canal abriu, tenta carregar se ainda não carregou
-    if (Object.keys(audioBuffers).length === 0) {
-        preloadSamples();
-    }
+    document.addEventListener('touchstart', function init() {
+        const ctx = createAudioContext();
+        
+        // Toca um silêncio absoluto para abrir o canal de hardware
+        const buffer = ctx.createBuffer(1, 1, 22050);
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(ctx.destination);
+        source.start(0);
+        
+        if (ctx.state === 'suspended') ctx.resume();
+        
+        // Agora que o canal abriu, tenta carregar se ainda não carregou
+        if (Object.keys(audioBuffers).length === 0) {
+            preloadSamples();
+        }
     
     document.removeEventListener('touchstart', init);
-}, false);
+    }, false);
 
-        if (!isMobile) {
+     if (!isMobile) {
             document.addEventListener('keydown', (event) => {
                 const instrument = keyToInstrument[event.key.toLowerCase()];
                 if (instrument) playInstrument(instrument);
@@ -227,45 +259,49 @@ document.addEventListener('touchstart', function init() {
             document.querySelectorAll('.drum').forEach((el) => {
                 el.addEventListener('mousedown', () => playInstrument(el.id));
             });
-        }   else {
-        document.getElementById('disp').className = 'bi-phone';
-        document.getElementById('disp').innerText = 'Mobile';
+     }  
+      else 
+    
+        {
+            document.getElementById('disp').className = 'bi-phone';
+            document.getElementById('disp').innerText = 'Mobile';
 
-        // Função para destravar o áudio no primeiro toque em QUALQUER lugar
-        const unlockAudio = () => {
-            const ctx = createAudioContext();
-            if (ctx.state === 'suspended') {
-                ctx.resume();
-            }
-            
-            // Toca um buffer vazio rápido só para o iOS entender que o canal está aberto
-            const buffer = ctx.createBuffer(1, 1, 22050);
-            const source = ctx.createBufferSource();
-            source.buffer = buffer;
-            source.connect(ctx.destination);
-            source.start(0);
-
-            // Remove os listeners de "destrava" após o primeiro sucesso
-            window.removeEventListener('touchstart', unlockAudio);
-            window.removeEventListener('mousedown', unlockAudio);
-        };
-
-        window.addEventListener('touchstart', unlockAudio);
-        window.addEventListener('mousedown', unlockAudio);
-
-        document.querySelectorAll('.drum').forEach((el) => {
-            el.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                // Garante que o contexto está ativo antes de tocar
-                if (audioContext && audioContext.state === 'suspended') {
-                    audioContext.resume();
+            // Função para destravar o áudio no primeiro toque em QUALQUER lugar
+            const unlockAudio = () => {
+                const ctx = createAudioContext();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
                 }
-                playInstrument(el.id);
-            }, { passive: false });
-        });
-    }
-}
+                
+                // Toca um buffer vazio rápido só para o iOS entender que o canal está aberto
+                const buffer = ctx.createBuffer(1, 1, 22050);
+                const source = ctx.createBufferSource();
+                source.buffer = buffer;
+                source.connect(ctx.destination);
+                source.start(0);
 
+                // Remove os listeners de "destrava" após o primeiro sucesso
+                window.removeEventListener('touchstart', unlockAudio);
+                window.removeEventListener('mousedown', unlockAudio);
+            };
+
+            window.addEventListener('touchstart', unlockAudio);
+            window.addEventListener('mousedown', unlockAudio);
+
+            document.querySelectorAll('.drum').forEach((el) => {
+                el.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    // Garante que o contexto está ativo antes de tocar
+                    if (audioContext && audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+                    playInstrument(el.id);
+                }, { passive: false });
+            });
+        }
+
+
+}
 
 
 // Inicialização Sequencial

@@ -10,7 +10,7 @@
     
     margin-top: 30vh;
     z-index: 6;
-    margin-right:40vh;
+    margin-right:35vh;
     
 }
 
@@ -23,7 +23,7 @@
 }
 
 #surdo{
-    margin-left: 46vh;
+    margin-left: 25vh;
     margin-top: 25vh;
     z-index: 2;
 }
@@ -42,38 +42,25 @@
     z-index: 1;
 }
 
-#chimbauA{    
+#chimbauOp{    
 
     opacity: 0;
     margin-top:20vh;
     margin-right:25vh;
-     transform: scale(1.2);
     z-index:2;
 }
 
-.card{
-
-    width:30vh;
-    background-color: #333;
-    border-radius: 1vh;
-    padding: 2vh;
-    font-size: 1rem;
-    font-family: serif;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 5px 1px #041019;
-}
 
 
 
 #batera{
     
-    &:has(#chimbauA.active)
+    &:has(#chimbauOp.active)
     {
         #chimbau{
             opacity: 0;
         }
-         #chimbauA{
+         #chimbauOp{
             opacity: 1;
             transition: all 0.1s;
         }
@@ -81,7 +68,7 @@
 
     &:has(#chimbau.active)
     {
-        #chimbauA {
+        #chimbauOp {
             opacity: 0;
             transition: all 0.1s;
         }
@@ -90,11 +77,8 @@
 
 #chimbau{
     z-index: 1;
-    margin-top: 18vh;
-    margin-right: 24vh;
-
-   
-
+  margin-top:20vh;
+    margin-right:25vh;
 }
 
 
@@ -108,13 +92,13 @@
 
 #crash{
          margin-top: 12vh;
-        margin-right: 50vh;;
-    transform: scale(1.5);
+        margin-right: 45vh;;
+    
     z-index: 1;
 }
 
 #ataque{
-     transform: scale(1.5);
+
     z-index: 0;
     margin-left: 40vh;
     margin-top: 8vh;
@@ -126,15 +110,15 @@
 
 @keyframes ataque {
     0% {
-        transform:scale(1.5) skewX(-11deg)
+        transform: skewX(-2deg)
     }
 
     50% {
-        transform:scale(1.5) skewX(0deg);
+        transform:skewX(0deg);
     }
     
     100% {
-        transform:scale(1.5) skewX(11eg);
+        transform: skewX(2eg);
         
     }
 }
@@ -158,12 +142,9 @@
    }
 
 
-       .drum-kit {
-        }
+    .drum.img{
 
-        .eq-container{
-            
-        }
+    }
 
         .eq-panel {
             
@@ -181,7 +162,7 @@
         .eq-band label {
             display: block;
             margin-bottom: 3px;
-            font-size: 0.55rem;
+            font-size: 0.85rem;
             color: #f0f0f0;
         }
 
