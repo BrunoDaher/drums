@@ -7,22 +7,23 @@ const keyToInstrument = {
     i: 'chimbauOp',
     o: 'tom',
     p: 'ataque',
-    u: 'crash',
+    q: 'crash',
     ';': 'conducao',
     '[': 'sino',
-    n: 'surdo',
-    m: 'tom',
+    m: 'surdo',
+    o: 'tom',
     z: 'bloco'
 };
 
 
 function instCollection(variacao){
 
-    console.log(1)
 
     let instCollection = new Set(Object.values(keyToInstrument).flat());
 
-    console.log(variacao)
+    path = variacao;
+
+    console.log('alterando path para :',variacao);
     
     instCollection.forEach(element => {
         
@@ -34,6 +35,8 @@ function instCollection(variacao){
 
         //console.log(img)
     });
+
+    preloadSamples(); // Começa a carregar assim que o script roda
     
 }
 
@@ -56,18 +59,22 @@ function createAudioContext() {
     return audioContext;
 }
 
+let path = 'normal';
 
 
 // Carrega todos os sons na inicialização
 async function preloadSamples() {
+
+    console.log('carregando samples a partir de :',path);
+
     const ctx = createAudioContext();
     const uniqueInstruments = [...new Set(Object.values(keyToInstrument))];
-    
     //console.log("Iniciando pré-carregamento dos samples...");
     
     const loadTasks = uniqueInstruments.map(async (name) => {
         try {
-            const response = await fetch(`./mp3/${name}.mp3`);
+
+            const response = await fetch(`./mp3/${path}/${name}.mp3`);
             const arrayBuffer = await response.arrayBuffer();
             const decodedData = await ctx.decodeAudioData(arrayBuffer);
             audioBuffers[name] = decodedData;

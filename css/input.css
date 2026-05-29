@@ -75,3 +75,21 @@ input[type=range]::-moz-range-track {
   border-radius: 4px;
   border: 1px solid #555;
 }
+
+
+button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.card:hover{
+
+    
+    color: white;
+    cursor: pointer;
+    box-shadow: 1px 1px 8px 3px black;
+    transition: all 0.5s;
+    
+  
+}
