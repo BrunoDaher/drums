@@ -26,9 +26,15 @@
         flex: auto;
     }
 
+    :focus-visible{
+            outline: none;
+    box-shadow: -1px 1px 10px 3px rebeccapurple !important;
+
+    }
+
     aside{
 
-        overflow-y: scroll;
+        
         flex:40%;
         font-size:2vh;
         margin:2vh;
