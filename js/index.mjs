@@ -1,3 +1,7 @@
+import { AudioManager } from './AudioManager.mjs';
+import { Sequencer } from './Sequencer.mjs';
+import { UIManager } from './UIManager.mjs';
+
 const keyToInstrument = {
     a: 'caixa', 
     l: 'caixa',
@@ -5,313 +9,188 @@ const keyToInstrument = {
     k: 'chimbau',
     s: 'chimbau',
     i: 'chimbauOp',
-    o: 'tom',
+    u: 'tom',
     p: 'ataque',
     q: 'crash',
     ';': 'conducao',
     '[': 'sino',
     m: 'surdo',
-    o: 'tom',
     z: 'bloco'
 };
 
+const midiToInstrument = {
+    36: 'bumbo',      // C1
+    35: 'bumbo',      // B0
+    38: 'caixa',      // D1
+    40: 'caixa',      // E1
+    42: 'chimbau',    // F#1 (Closed HH)
+    46: 'chimbauOp',  // A#1 (Open HH)
+    41: 'surdo',      // F1 (Low Tom)
+    45: 'tom',        // A1 (Mid Tom)
+    49: 'crash',      // C#2
+    51: 'conducao',   // D#2 (Ride)
+    53: 'sino',       // F2 (Ride Bell)
+    57: 'ataque',     // A2 (Crash 2)
+    37: 'bloco'       // C#1 (Side Stick)
+};
 
-function instCollection(variacao){
+// Instâncias das Classes
+const audio = new AudioManager();
+const sequencer = new Sequencer();
+const ui = new UIManager(sequencer);
+
+const btnsAside = document.querySelectorAll('.btnAside');
+const sideMenu = document.querySelectorAll('.sideMenu');
+const btnsModelo = document.querySelectorAll('.btnModelo');
+
+const btnSeq = document.getElementById('seq');
+const btnStop = document.getElementById('stop');
 
 
-    let instCollection = new Set(Object.values(keyToInstrument).flat());
 
-    path = variacao;
 
-    console.log('alterando path para :',variacao);
-    
-    instCollection.forEach(element => {
+btnsAside.forEach(btn => {
+    btn.addEventListener('click', () => {
         
-        let src = `./imgs/${variacao}/${element}.png`;
-        console.log(src)
-        document.getElementById(element).style.backgroundImage = '';
-        document.getElementById(element).style.backgroundImage = `url(${src})`
-        //document.getElementById(element).setAttribute('background-image',src);
+        btnsAside.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
 
-        //console.log(img)
+        const path = btn.getAttribute('data-target');
+            let target = document.getElementById(path);
+        
+         sideMenu.forEach(menu => {
+            if(menu.id !== path) menu.classList.add('off');
+         })   
+
+        target.classList.toggle('off');
+        
+
     });
+});
 
-    preloadSamples(); // Começa a carregar assim que o script roda
-    
+btnsModelo.forEach(btn => {
+    btn.addEventListener('click', () => {
+        btnsModelo.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        changeKit(btn.getAttribute('data-target'));
+    });
+});
+
+let currentPath = 'normal';
+const instruments = [...new Set(Object.values(keyToInstrument))];
+
+const updateAudioParams = () => {
+    audio.updateEQ(
+        Number(document.getElementById('lowGain').value),
+        Number(document.getElementById('midGain').value),
+        Number(document.getElementById('highGain').value)
+    );
+    audio.updateReverb(Number(document.getElementById('reverbWet').value));
+};
+
+async function changeKit(newPath) {
+    currentPath = newPath;
+    ui.updateKitVisuals(currentPath, instruments);
+    await audio.loadKit(currentPath, instruments);
+    updateAudioParams(); // Sincroniza o áudio com os sliders após carregar o kit
+    ui.renderGrid('sequencer-grid-container', currentPath);
 }
 
+function playInstrument(name, time = 0) {
+    const ctx = audio.init();
+    const now = ctx.currentTime;
+    const delay = time > 0 ? (time - now) * 1000 : 0;
+    
+    setTimeout(() => ui.animatePad(name), Math.max(0, delay));
+    audio.play(name, time);
+}
 
+function onTick(step, time) {
+    ui.highlightStep(step);
+    Object.keys(sequencer.grid).forEach(inst => {
+        if (sequencer.grid[inst][step]) {
+            playInstrument(inst, time);
+        }
+    });
+}
 
+function setupInputs() {
+    // Teclado
+    document.addEventListener('keydown', (e) => {
+        const inst = keyToInstrument[e.key.toLowerCase()];
+        if (inst) playInstrument(inst);
+    });
 
+    // Pads Visuais
+    document.querySelectorAll('.drum').forEach(pad => {
+        pad.addEventListener('mousedown', () => playInstrument(pad.id));
+    });
 
-let audioContext;
-let eqNodes;
-let reverbNodes;
-const audioBuffers = {}; // Cache para latência zero
+    // Controles do Sequenciador
+    btnSeq.onclick = () => {
+        sequencer.start(audio.init(), onTick);
+        btnSeq.classList.add('active');
+    }
+        
+    
+    btnStop.onclick = () => {
+        sequencer.stop();
+        
+        btnSeq.classList.remove('active');
+    }
+    document.getElementById('clear-grid').onclick = () => {
+        
+        sequencer.clear();
+        ui.renderGrid('sequencer-grid-container', currentPath);
+    };
 
-function createAudioContext() {
-    if (!audioContext) {
-        // Forçar 44.1kHz ajuda muito na estabilidade do iOS
-        audioContext = new (window.AudioContext || window.webkitAudioContext)({
-            sampleRate: 44100 
+    
+
+    // BPM
+    const bpmSlider = document.getElementById('bpm');
+    bpmSlider.oninput = () => {
+        sequencer.tempo = Number(bpmSlider.value);
+        document.getElementById('bpmValue').innerText = sequencer.tempo;
+    };
+
+    // Kits
+    ['heavy', 'normal', 'light', 'perc'].forEach(id => {
+        document.getElementById(id).onclick = () => changeKit(id);
+    });
+
+    document.querySelectorAll('.eq-band input').forEach(input => {
+        input.addEventListener('input', (e) => {
+            updateAudioParams();
+            const valSpan = e.target.previousElementSibling.querySelector('span');
+            if (valSpan) valSpan.innerText = e.target.value;
         });
-    }
-    return audioContext;
-}
-
-let path = 'normal';
-
-
-// Carrega todos os sons na inicialização
-async function preloadSamples() {
-
-    console.log('carregando samples a partir de :',path);
-
-    const ctx = createAudioContext();
-    const uniqueInstruments = [...new Set(Object.values(keyToInstrument))];
-    //console.log("Iniciando pré-carregamento dos samples...");
-    
-    const loadTasks = uniqueInstruments.map(async (name) => {
-        try {
-
-            const response = await fetch(`./mp3/${path}/${name}.mp3`);
-            const arrayBuffer = await response.arrayBuffer();
-            const decodedData = await ctx.decodeAudioData(arrayBuffer);
-            audioBuffers[name] = decodedData;
-        } catch (err) {
-            console.error(`Erro ao carregar o sample: ${name}`, err);
-        }
     });
 
-    await Promise.all(loadTasks);
-    //console.log("Samples carregados e decodificados. Pronto para tocar!");
-}
-
-function createImpulseResponse(ctx, duration = 1.2, decay = 2.0) {
-    const sampleRate = ctx.sampleRate;
-    const length = sampleRate * duration;
-    const buffer = ctx.createBuffer(2, length, sampleRate);
-    for (let channel = 0; channel < 2; channel++) {
-        const channelData = buffer.getChannelData(channel);
-        for (let i = 0; i < length; i++) {
-            const t = i / sampleRate;
-            channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - t / duration, decay);
-        }
-    }
-    return buffer;
-}
-
-function createEqualizer(ctx) {
-    if (eqNodes) return eqNodes;
-
-    const low = ctx.createBiquadFilter();
-    const mid = ctx.createBiquadFilter();
-    const high = ctx.createBiquadFilter();
-
-    low.type = 'lowshelf';
-    low.frequency.value = 250;
-    low.gain.value = 0;
-
-    mid.type = 'peaking';
-    mid.frequency.value = 1000;
-    mid.Q.value = 1;
-    mid.gain.value = 0;
-
-    high.type = 'highshelf';
-    high.frequency.value = 3000;
-    high.gain.value = 0;
-
-    low.connect(mid);
-    mid.connect(high);
-
-    eqNodes = { low, mid, high };
-    return eqNodes;
-}
-
-function createReverb(ctx, eqOutput) {
-    if (!reverbNodes) {
-        const convolver = ctx.createConvolver();
-        const wetGain = ctx.createGain();
-        const dryGain = ctx.createGain();
-
-        convolver.connect(wetGain);
-        wetGain.connect(ctx.destination);
-        dryGain.connect(ctx.destination);
-
-        const duration = Number(document.getElementById('reverbDuration')?.value || 1.2);
-        convolver.buffer = createImpulseResponse(ctx, duration, 2.0);
-        wetGain.gain.value = 0;
-        dryGain.gain.value = 1;
-
-        reverbNodes = { convolver, wetGain, dryGain, duration, connected: false };
-    }
-
-    if (eqOutput && !reverbNodes.connected) {
-        eqOutput.connect(reverbNodes.convolver);
-        eqOutput.connect(reverbNodes.dryGain);
-        reverbNodes.connected = true;
-    }
-
-    return reverbNodes;
-}
-
-function updateControlValues() {
-    if (!eqNodes || !reverbNodes) return;
-
-    const lowGain = Number(document.getElementById('lowGain')?.value || 0);
-    const midGain = Number(document.getElementById('midGain')?.value || 0);
-    const highGain = Number(document.getElementById('highGain')?.value || 0);
-    const wetValue = Number(document.getElementById('reverbWet')?.value || 0);
-
-    eqNodes.low.gain.value = lowGain;
-    eqNodes.mid.gain.value = midGain;
-    eqNodes.high.gain.value = highGain;
-
-    reverbNodes.wetGain.gain.value = wetValue / 100;
-    reverbNodes.dryGain.gain.value = 1 - (wetValue / 100);
-
-    if (document.getElementById('lowValue')) document.getElementById('lowValue').innerText = lowGain;
-    if (document.getElementById('midValue')) document.getElementById('midValue').innerText = midGain;
-    if (document.getElementById('highValue')) document.getElementById('highValue').innerText = highGain;
-    if (document.getElementById('reverbWetValue')) document.getElementById('reverbWetValue').innerText = wetValue;
-}
-
-function animateButton(name) {
-    const el = document.getElementById(name);
-    if (!el) return;
-    //console.log(el)
-    el.classList.add('active');
-    setTimeout(() => el.classList.remove('active'), 100);
-}
-
-function play(name) {
-    const ctx = createAudioContext();
-    
-    // Disparo imediato do buffer em cache
-    if (audioBuffers[name]) {
-        const eq = createEqualizer(ctx);
-        createReverb(ctx, eq.high);
-        updateControlValues();
-
-        const source = ctx.createBufferSource();
-        source.buffer = audioBuffers[name];
-        source.connect(eq.low);
-
-        if (ctx.state === 'suspended') ctx.resume();
-        source.start(0);
-    }
-}
-
-function playInstrument(name) {
-    animateButton(name);
-    play(name);
-}
-
-function initEqControls() {
-    ['low', 'mid', 'high'].forEach((band) => {
-        const input = document.getElementById(`${band}Gain`);
-        if (input) input.addEventListener('input', updateControlValues);
-    });
-
-    const reverbWet = document.getElementById('reverbWet');
-    const reverbDuration = document.getElementById('reverbDuration');
-    
-    if (reverbWet) reverbWet.addEventListener('input', updateControlValues);
-    if (reverbDuration) {
-        reverbDuration.addEventListener('input', () => {
-            if (reverbNodes) {
-                const duration = Number(reverbDuration.value);
-                reverbNodes.convolver.buffer = createImpulseResponse(audioContext, duration, 2.0);
-                document.getElementById('reverbDurationValue').innerText = duration.toFixed(1);
+    // MIDI
+    if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess().then(access => {
+            for (let input of access.inputs.values()) {
+                input.onmidimessage = (msg) => {
+                    const [status, note, vel] = msg.data;
+                    if ((status & 0xF0) === 0x90 && vel > 0) {
+                        const inst = midiToInstrument[note];
+                        if (inst) playInstrument(inst);
+                    }
+                };
             }
         });
     }
 }
 
-function setupInputHandlers() {
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    [heavy, normal, light, perc].forEach((el) => {
-        
-        el.addEventListener('click', () => instCollection(el.id));
-    });
-
-    // Dentro do else (Mobile) do setupInputHandlers
-    document.addEventListener('touchstart', function init() {
-        const ctx = createAudioContext();
-        
-        // Toca um silêncio absoluto para abrir o canal de hardware
-        const buffer = ctx.createBuffer(1, 1, 22050);
-        const source = ctx.createBufferSource();
-        source.buffer = buffer;
-        source.connect(ctx.destination);
-        source.start(0);
-        
-        if (ctx.state === 'suspended') ctx.resume();
-        
-        // Agora que o canal abriu, tenta carregar se ainda não carregou
-        if (Object.keys(audioBuffers).length === 0) {
-            preloadSamples();
-        }
+async function init() {
+    sequencer.setupGrid(instruments);
     
-    document.removeEventListener('touchstart', init);
-    }, false);
-
-     if (!isMobile) {
-            document.addEventListener('keydown', (event) => {
-                const instrument = keyToInstrument[event.key.toLowerCase()];
-                if (instrument) playInstrument(instrument);
-            });
-
-            document.querySelectorAll('.drum').forEach((el) => {
-                el.addEventListener('mousedown', () => playInstrument(el.id));
-            });
-     }  
-      else 
+    // Pattern Inicial
+    sequencer.grid.bumbo[0] = sequencer.grid.bumbo[4] = sequencer.grid.bumbo[8] = sequencer.grid.bumbo[12] = true;
+    sequencer.grid.caixa[4] = sequencer.grid.caixa[12] = true;
     
-        {
-            document.getElementById('disp').className = 'bi-phone';
-            document.getElementById('disp').innerText = 'Mobile';
-
-            // Função para destravar o áudio no primeiro toque em QUALQUER lugar
-            const unlockAudio = () => {
-                const ctx = createAudioContext();
-                if (ctx.state === 'suspended') {
-                    ctx.resume();
-                }
-                
-                // Toca um buffer vazio rápido só para o iOS entender que o canal está aberto
-                const buffer = ctx.createBuffer(1, 1, 22050);
-                const source = ctx.createBufferSource();
-                source.buffer = buffer;
-                source.connect(ctx.destination);
-                source.start(0);
-
-                // Remove os listeners de "destrava" após o primeiro sucesso
-                window.removeEventListener('touchstart', unlockAudio);
-                window.removeEventListener('mousedown', unlockAudio);
-            };
-
-            window.addEventListener('touchstart', unlockAudio);
-            window.addEventListener('mousedown', unlockAudio);
-
-            document.querySelectorAll('.drum').forEach((el) => {
-                el.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    // Garante que o contexto está ativo antes de tocar
-                    if (audioContext && audioContext.state === 'suspended') {
-                        audioContext.resume();
-                    }
-                    playInstrument(el.id);
-                }, { passive: false });
-            });
-        }
-
-
+    setupInputs();
+    await changeKit('normal');
 }
 
-
-// Inicialização Sequencial
-initEqControls();
-setupInputHandlers();
-preloadSamples(); // Começa a carregar assim que o script roda
+init();

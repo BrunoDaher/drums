@@ -77,10 +77,43 @@ input[type=range]::-moz-range-track {
 }
 
 
+aside.off{
+  display: none;
+}
+
+aside.on{
+  display: flex;
+}
+
+button{
+      box-shadow: -1px 0px 4px black;
+    border-radius: 5px;
+
+    &:focus-visible, &:hover, &.active{
+      scale: 1.1;
+      cursor: pointer;
+      background-color: #222;
+      transition: all 0.5s;
+    }
+}
+
+#modelos  > button{
+
+    padding:5vh 3vh;
+    color:white;
+
+}
+
+#seq.active{
+  color:green;
+
+}
+
 button{
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color:white;
 }
 
 .card:hover{

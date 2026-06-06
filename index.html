@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>BunnyDrum</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-        
-<link rel="icon" type="image/png" href="vendor/favico.png" /></head>
+    <link rel="icon" type="image/png" href="vendor/favico.png" /></head>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-
-
 
 <body class="flex-column justContBetween ">
     
     <header class="main-header flex justBetween">    
+            <div class="flex-row justBetween" style="gap:2vh">
             <span class="flex-row" style="align-items:center;gap:1vh">
                 <img src ="vendor/favico.png"class='logo'  alt="logo">
                 Bunny Drums
             </span>
+            <button class="active flex-row btnAside" data-target="keys-container" style="align-items:center;gap:1vh">
+                <i class="bi-keyboard"></i>
+                Teclas
+            </button>
+            <button class="flex-row btnAside" data-target="modelos" style="align-items:center;gap:1vh">
+                <img src="./imgs/normal/bumbo.png" class="inst-thumb">
+                Modelos
+            </button>
+            <button class="flex-row btnAside" data-target="equalizer" style="align-items:center;gap:1vh">
+                <i class="bi-bar-chart-fill"></i>
+                Equalizer
+            </button>
+            </div>
             <span id="disp" class="bi-laptop" style="font-size: 1em">
                PC - Notebook
             </span>
-
-            
-
-
     </header>
     
     <span id="advise" class="bi-phone-fill flex" style="font-size: 1em; gap:1vh">
-                Vire o celular na horizontal
+        Vire o celular na horizontal
     </span>
      
-     <!--Teclas-->
-    
     <main class="flex-row justCenter">
 
-        <aside id="keys-container" class="flex-column">
-                
+        <aside id="keys-container" class="sideMenu flex-column justAround">
+                <span>Mapa de Teclas</span>
             <div class="keymap-list" aria-label="Mapa de teclas">
                 <div class="keymap-header keymap-row">
                     <div class="label">Inst</div>
@@ -45,8 +50,8 @@
                 </div>
                 <div class="keymap-row"><div class="label">Caixa</div><div class="key">a ou l</div></div>
                 <div class="keymap-row"><div class="label">Bumbo</div><div class="key">c</div></div>
-                <div class="keymap-row"><div class="label">Surdo</div><div class="key">n</div></div>
-                <div class="keymap-row"><div class="label">Tom</div><div class="key">m</div></div>
+                <div class="keymap-row"><div class="label">Surdo</div><div class="key">m</div></div>
+                <div class="keymap-row"><div class="label">Tom</div><div class="key">u</div></div>
                 <div class="keymap-row"><div class="label">Chimbau</div><div class="key">k</div></div>
                 <div class="keymap-row"><div class="label">ChimbauA</div><div class="key">I</div></div>
                 <div class="keymap-row"><div class="label">Condução</div><div class="key">,</div></div>
@@ -56,20 +61,47 @@
                 <div class="keymap-row"><div class="label">Bloco</div><div class="key">z</div></div>
             </div>
         </aside>
-
-        <article class="flex-column justCenter">
+    
+        <aside id="modelos" class="sideMenu off flex-column justAround sideMenu">
             <span>Modelos </span>
             <section id="modelos" class="flex-column justBetween" style="">
-                
-                <button class="card" id="heavy">Heavy</button>
-                <button class="card" id="normal">Normal</button>
-                <button id="light" class="card ">Light</button>
-                <button class="card" id="perc">Percussão</button>
-
+                <button id="heavy"  class="btnModelo">Heavy</button>
+                <button id="normal" class="btnModelo">Normal</button>
+                <button id="light"  class="btnModelo">Light</button>
+                <button id="perc"   class="btnModelo">Percussão</button>
             </section>
-        </article>
+        </aside>
+
+        <aside id="equalizer" class="sideMenu off flex-column justAround" aria-label="Equalizador">
+            <span class="">Equalizer</span>
+
+            <article class="flex-column justCenter eq-panel">
+            
+                <div class="eq-band">
+                    <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
+                    <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+                </div>
+                <div class="eq-band">
+                    <label for="midGain">Médios <span id="midValue">0</span>dB</label>
+                    <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+                </div>
+                <div class="eq-band">
+                    <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
+                    <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
+                </div>
+            
+                <div class="eq-band">
+                    <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
+                    <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
+                </div>
+                <div class="eq-band">
+                    <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
+                    <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+                </div>
+
+            <article>
+        </aside>
     
-    <!--batera-->
         <article id="batera" class="drum-kit flex justCenter" 
             style="width: 100%; position:relative;" >
             
@@ -116,39 +148,41 @@
             </span>
         </article>
 
-         <aside id="controles" class="eq-container flex-column">
-                <section class="eq-panel flex-column" aria-label="Equalizador">
-                    <div class="eq-band">
-                        <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
-                        <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
-                    </div>
-                    <div class="eq-band">
-                        <label for="midGain">Médios <span id="midValue">0</span>dB</label>
-                        <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
-                    </div>
-                    <div class="eq-band">
-                        <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
-                        <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
-                    </div>
-                
-                    <div class="eq-band">
-                        <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
-                        <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
-                    </div>
-                    <div class="eq-band">
-                        <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
-                        <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
-                    </div>
-                </section>
-        </aside>
+         <aside id="divSequencer" class="flex-column ">
 
+            <article id="sequencer-meta-controls" 
+                    class="flex-row " style="gap: 20px; margin-top: 10px; align-items: center;">
+                <div class="eq-band" style="width: 150px;">
+                    <label for="bpm">Tempo: <span id="bpmValue">125</span> BPM</label>
+                    <input id="bpm" type="range" min="60" max="220" step="1" value="125">
+                </div>
+                <button id="clear-grid" style="font-size: 0.8rem; border: 1px solid #555; padding: 5px 10px; border-radius: 4px;">Limpar Tudo</button>
+
+                  <article >
+                <button id="seq" class="eq-button" aria-label="playseq"
+                    style="font-size: 35px;">
+                    <i class="bi-play-fill"></i>
+                </button>
+                <button id="stop" class="eq-button" aria-label="stopseq"
+                    style="font-size: 35px;">
+                    <i class="bi-stop-fill"></i>
+                </button>
+            </article>
+            </article>
+
+            <section id="sequencer-grid-container" class="flex-column"></section>
+
+            </div>  
+
+                
+        </aside>
     </main>
 
     <footer class="flex" >
         Bruno Oliveira
     </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    
     <script type="module" src="./js/index.mjs"></script>
 </body>
 </html>

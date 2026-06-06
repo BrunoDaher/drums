@@ -19,6 +19,14 @@
     justify-content: center;
 }
 
+.justAround {
+    justify-content: space-around;
+}
+
+.justEvenly {
+    justify-content: space-evenly;
+}
+
 .wrap{
     flex-wrap: wrap;
 }

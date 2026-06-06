@@ -6,6 +6,8 @@
         this.audioContext = new AudioContext();
         this.sustain = 0.01;
         console.log('Web Audio initialized');
+
+
     }
 
     fx(event) {
@@ -15,6 +17,9 @@
     }
 
     playNote(frequency, type) {
+
+
+
         const ctx = this.audioContext;
         if (ctx) {
             const now = ctx.currentTime;
@@ -62,6 +67,8 @@
             high: ctx.createBiquadFilter()
         };
     }
+
+ 
 
     // Dummy effect methods (replace with your actual implementation)
    // conectChorus() {}

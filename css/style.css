@@ -1,5 +1,6 @@
 
 @import url('elems.css');
+@import url('drums.css');
 @import url('flex.css');
 @import url('input.css');
 @import url('mobile.css');
@@ -92,13 +93,13 @@
         
         
         &>div{
-            border-width: 2px;
-        box-shadow: 0px 0px 10px 0px black;
-            &>div{
+        
+                    border-width: 2px;
+        margin: 2px;
+        box-shadow: 1px 1px 1px 0px black;
 
+            &>div{
                 padding: 8px 2vh;
-                
-                            
             }
         }
 
