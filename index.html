@@ -11,37 +11,45 @@
 
 <body class="flex-column justContBetween ">
     
-    <header class="main-header flex justBetween">    
-            <div class="flex-row justBetween" style="gap:2vh">
-            <span class="flex-row" style="align-items:center;gap:1vh">
-                <img src ="vendor/favico.png"class='logo'  alt="logo">
-                Bunny Drums
-            </span>
-            <button class="active flex-row btnAside" data-target="keys-container" style="align-items:center;gap:1vh">
+    <header class="main-header flex ">    
+           
+        <span class="showDesk flex-row" style="align-items:center;gap:1vh">
+            <img src ="vendor/favico.png"class='logo'  alt="logo">
+            Bunny Drums
+        </span>
+
+        <div class="flex-row  w100" style="gap:2vh">
+            
+            <button class="showDesk active flex-row btnAside" data-target="keys-container" style="align-items:center;gap:1vh">
                 <i class="bi-keyboard"></i>
                 Teclas
             </button>
-            <button class="flex-row btnAside" data-target="modelos" style="align-items:center;gap:1vh">
-                <img src="./imgs/normal/bumbo.png" class="inst-thumb">
-                Modelos
+
+            <button class="active flex-row btnAside" data-target="batera" style="align-items:center;gap:1vh">
+                <img src="./imgs/normal/caixa.svg" class="inst-thumb">
+                Batera
+            </button>
+          
+            <button class="flex-row btnAside" data-target="divSequencer" style="align-items:center;gap:1vh">
+                <i class="bi-keyboard"></i>
+                Sequencer
             </button>
             <button class="flex-row btnAside" data-target="equalizer" style="align-items:center;gap:1vh">
                 <i class="bi-bar-chart-fill"></i>
                 Equalizer
             </button>
-            </div>
-            <span id="disp" class="bi-laptop" style="font-size: 1em">
-               PC - Notebook
-            </span>
+           
+        </div>
+            
     </header>
     
     <span id="advise" class="bi-phone-fill flex" style="font-size: 1em; gap:1vh">
         Vire o celular na horizontal
     </span>
      
-    <main class="flex-row justCenter">
+    <main class="flex-row justBetween">
 
-        <aside id="keys-container" class="sideMenu flex-column justAround">
+        <aside id="keys-container" class="off sideMenu flex-column justAround">
                 <span>Mapa de Teclas</span>
             <div class="keymap-list" aria-label="Mapa de teclas">
                 <div class="keymap-header keymap-row">
@@ -61,18 +69,8 @@
                 <div class="keymap-row"><div class="label">Bloco</div><div class="key">z</div></div>
             </div>
         </aside>
-    
-        <aside id="modelos" class="sideMenu off flex-column justAround sideMenu">
-            <span>Modelos </span>
-            <section id="modelos" class="flex-column justBetween" style="">
-                <button id="heavy"  class="btnModelo">Heavy</button>
-                <button id="normal" class="btnModelo">Normal</button>
-                <button id="light"  class="btnModelo">Light</button>
-                <button id="perc"   class="btnModelo">Percussão</button>
-            </section>
-        </aside>
 
-        <aside id="equalizer" class="sideMenu off flex-column justAround" aria-label="Equalizador">
+        <aside id="equalizer" class="off sideMenu flex-column justAround" aria-label="Equalizador">
             <span class="">Equalizer</span>
 
             <article class="flex-column justCenter eq-panel">
@@ -101,61 +99,76 @@
 
             <article>
         </aside>
-    
-        <article id="batera" class="drum-kit flex justCenter" 
-            style="width: 100%; position:relative;" >
-            
-            <span id="caixa" style="background-image: url(./imgs/normal/caixa.png)" class="drum img" data-key="a">
-                <small class="label">a ou l</small>
-            </span>
-            <span id="bumbo" style="background-image: url(./imgs/normal/bumbo.png)" class="drum img" data-key="c">
-                <small class="label">c</small>
-            </span>
 
-            <span id="surdo" style="background-image: url(./imgs/normal/surdo.png)" class="drum img" data-key="m">
-                <small class="label">m</small>
-            </span>
+        <article id="batera" class="w100 sideMenu flex justCenter" style="position: relative;">
+                
+            <section id="modelos" class="w20 flex-column">
+                <button id="heavy"  class="btnModelo">Heavy</button>
+                <button id="normal" class="btnModelo">Normal</button>
+                <button id="light"  class="btnModelo">Light</button>
+                <button id="perc"   class="btnModelo">Percussão</button>
+            </section>
+        
+            <section id="drumkit"  class="off drum-kit flex justCenter" 
+                style="position:relative;" >
+                
+                <span id="caixa" style="background-image: url(./imgs/normal/caixa.svg)" class="drum img" data-key="a">
+                    <small class="label clip">a ou l</small>
+                </span>
+                <span id="bumbo" style="background-image: url(./imgs/normal/bumbo.svg)" class="drum img" data-key="c">
+                    <small class="label clip">c</small>
+                </span>
 
-            <span id="tom" style="background-image: url(./imgs/normal/tom.png)" class="drum img" data-key="o">
-                <small class="label">o</small>
-            </span>
+                <span id="surdo" style="background-image: url(./imgs/normal/surdo.svg)" class="drum img" data-key="m">
+                    <small class="label clip">m</small>
+                </span>
 
-            <span id="chimbau" style="background-image: url(./imgs/normal/chimbau.png)" class="drum img" data-key="k">
-                <small class="label">k</small>
-            </span>
-            <span id="chimbauOp" style="background-image: url(./imgs/normal/chimbauOp.png)" class="drum img" data-key="i">
-                <small class="label">I</small>
-            </span>
+                <span id="tom" style="background-image: url(./imgs/normal/tom.svg)" class="drum img" data-key="o">
+                    <small class="label clip">o</small>
+                </span>
 
-            <span id="conducao" style="background-image: url(./imgs/normal/conducao.png)" class="drum img" data-key=";">
-                <small class="label">;</small>
-            </span>
+                <span id="chimbau" style="background-image: url(./imgs/normal/chimbau.svg)" class="drum img" data-key="k">
+                    <small class="label clip">k</small>
+                </span>
+                <span id="chimbauOp" style="background-image: url(./imgs/normal/chimbauOp.svg)" class="drum img" data-key="i">
+                    <small class="label clip">I</small>
+                </span>
 
-            <span id="sino" style="background-image: url(./imgs/normal/conducao.png)" class="drum img" data-key="[">
-                <small class="label">[</small>
-            </span>
+                <span id="conducao" style="background-image: url(./imgs/normal/conducao.svg)" class="drum img" data-key=";">
+                    <small class="label clip">;</small>
+                </span>
 
-            <span id="crash" style="background-image: url(./imgs/normal/crash.png)" class="drum img" data-key="q">
-                <small class="label">q</small>
-            </span>
+                <span id="sino" style="background-image: url(./imgs/normal/conducao.svg)" class="drum img" data-key="[">
+                    <small class="label clip">[</small>
+                </span>
 
-            <span id="ataque" style="background-image: url(./imgs/normal/ataque.png)" class="drum img" data-key="p">
-                <small class="label bi-keyboard">p</small>
-            </span>
-            
-            <span id="bloco" style="background-image: url(./imgs/normal/bloco.png)" class="drum img" data-key="z">
-                <small class="label bi-keyboard">z</small>
-            </span>
+                <span id="crash" style="background-image: url(./imgs/normal/crash.svg)" class="drum img" data-key="q">
+                    <small class="label clip">q</small>
+                </span>
+
+                <span id="ataque" style="background-image: url(./imgs/normal/ataque.svg)" class="drum img" data-key="p">
+                    <small class="label clip">p</small>
+                </span>
+                
+                <span id="bloco" style="background-image: url(./imgs/normal/bloco.svg)" class="drum img" data-key="z">
+                    <small class="label clip">z</small>
+                </span>
+            </section>
+        
         </article>
 
-         <aside id="divSequencer" class="flex-column ">
+         <article id="divSequencer" class="off sideMenu  flex w100 ">
 
-            <article id="sequencer-meta-controls" 
-                    class="flex-row " style="gap: 20px; margin-top: 10px; align-items: center;">
-                <div class="eq-band" style="width: 150px;">
-                    <label for="bpm">Tempo: <span id="bpmValue">125</span> BPM</label>
-                    <input id="bpm" type="range" min="60" max="220" step="1" value="125">
-                </div>
+            <article id="sequencer-meta-controls" class="flex-column justAround">
+                
+                    <label for="bpm">
+                        <span id="bpmValue">125</span> 
+                        BPM
+                    </label>
+
+                <div style="rotate: -90deg;">
+                            <input id="bpm" type="range" min="60" max="220" step="1" value="125">
+                    </div>
                 <button id="clear-grid" style="font-size: 0.8rem; border: 1px solid #555; padding: 5px 10px; border-radius: 4px;">Limpar Tudo</button>
 
                   <article >
@@ -171,11 +184,9 @@
             </article>
 
             <section id="sequencer-grid-container" class="flex-column"></section>
-
-            </div>  
-
                 
-        </aside>
+        </article>
+
     </main>
 
     <footer class="flex" >

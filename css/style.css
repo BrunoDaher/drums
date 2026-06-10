@@ -4,6 +4,7 @@
 @import url('flex.css');
 @import url('input.css');
 @import url('mobile.css');
+@import url('sequencer.css');
 
 
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
@@ -63,11 +64,20 @@
         box-shadow: 0 0 5px 1px #041019;
     }
 
+    .showDesk{
+        @media (max-width:700px) or (orientation: landscape) {
+            display:none;
+        }
+    }
 
     main{
         background-color: #222;
         flex:auto;
         height: 80vh;
+    }
+
+    #modelos{
+        width:20%; position: absolute; top:0; left:0; margin:2vh;
     }
 
     #modelos:hover{

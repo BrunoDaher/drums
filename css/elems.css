@@ -1,13 +1,4 @@
 
-
-
-#modelos{
-    gap:2vh;
-}
-
-
-
-
 .logo{
     width: 32px;
     height: 32px;
@@ -29,22 +20,14 @@
     }
 }
 
-
-
-   span.active, span:hover{
+span.active, span:hover{
       /*background-color: #333;*/
-      scale: 1.006;
-
-          filter: drop-shadow(1px 1px 10px black) saturate(1.5) ;
-          
-    
-    z-index: 10;
+      
    }
 
-
-    .drum.img{
-
-    }
+.sideMenu.off{
+    display: none;
+   }
 
         .eq-panel {
             
@@ -70,96 +53,4 @@
             width: 100%;
         }
 
-        .drum {
-
-            display: flex;         /* Permite definir largura e altura */
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            overflow: hidden; 
-            user-select: none;
-            border: none;
-            border-radius: 10px;
-            width: 40vh;
-            height: 30vh;
-            font-size: 2em;
-            color: #fff;
-            cursor: pointer;
-
-            &:hover{
-                z-index: 10;
-            }
-
-            transition: background 0.2s;
-        }
-   
      
-   .drum-kit >span{
-
-     background-size: cover;
-    
-    /* Cria uma área de clique circular */
-    border-radius: 50%;
-        
-        background-size: contain;
-        background-repeat: no-repeat;
-        position: absolute;
-        background-size: 40vh;
-        background-position: center;
-   }
-   
-
-/* Sequencer UI */
-#sequencer-grid-container {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    overflow-y: auto;
-}
-
-.sequencer-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 4px;
-}
-
-.inst-thumb {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
-}
-
-.inst-label {
-    display: flex;
-    width: 90px;
-    align-items: center;
-    
-    font-size: 0.7rem;
-    color: #ccc;
-    text-transform: capitalize;
-}
-
-.steps-container {
-    display: flex;
-    gap: 3px;
-}
-
-.step {
-    width: 18px;
-    height: 18px;
-    background: #333;
-    border-radius: 2px;
-    cursor: pointer;
-    border: 1px solid #444;
-}
-
-.step.active {
-    background: #00ff88;
-    box-shadow: 0 0 5px #00ff88;
-}
-
-.step.current {
-    border-color: #fff;
-    transform: scale(1.1);
-}

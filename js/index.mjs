@@ -1,6 +1,7 @@
 import { AudioManager } from './AudioManager.mjs';
 import { Sequencer } from './Sequencer.mjs';
 import { UIManager } from './UIManager.mjs';
+import { getTarget, getAll , getById, hideAll} from './lib.js';
 
 const keyToInstrument = {
     a: 'caixa', 
@@ -39,32 +40,26 @@ const audio = new AudioManager();
 const sequencer = new Sequencer();
 const ui = new UIManager(sequencer);
 
-const btnsAside = document.querySelectorAll('.btnAside');
-const sideMenu = document.querySelectorAll('.sideMenu');
-const btnsModelo = document.querySelectorAll('.btnModelo');
+const btnsAside = getAll('.btnAside');
+const sideMenu = getAll('.sideMenu');
+const btnsModelo = getAll('.btnModelo');
 
-const btnSeq = document.getElementById('seq');
-const btnStop = document.getElementById('stop');
-
-
-
+const btnSeq = getById('seq');
+const btnStop = getById('stop');
 
 btnsAside.forEach(btn => {
     btn.addEventListener('click', () => {
+        //self
+        
         
         btnsAside.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
 
-        const path = btn.getAttribute('data-target');
-            let target = document.getElementById(path);
+        hideAll('.sideMenu');
         
-         sideMenu.forEach(menu => {
-            if(menu.id !== path) menu.classList.add('off');
-         })   
-
-        target.classList.toggle('off');
         
-
+        
+        getTarget(btn).classList.remove('off');
     });
 });
 
@@ -81,11 +76,11 @@ const instruments = [...new Set(Object.values(keyToInstrument))];
 
 const updateAudioParams = () => {
     audio.updateEQ(
-        Number(document.getElementById('lowGain').value),
-        Number(document.getElementById('midGain').value),
-        Number(document.getElementById('highGain').value)
+        Number(getById('lowGain').value),
+        Number(getById('midGain').value),
+        Number(getById('highGain').value)
     );
-    audio.updateReverb(Number(document.getElementById('reverbWet').value));
+    audio.updateReverb(Number(getById('reverbWet').value));
 };
 
 async function changeKit(newPath) {
@@ -122,8 +117,9 @@ function setupInputs() {
     });
 
     // Pads Visuais
-    document.querySelectorAll('.drum').forEach(pad => {
-        pad.addEventListener('mousedown', () => playInstrument(pad.id));
+   getAll('.clip').forEach(pad => {
+        let id= pad.parentElement.id;
+        pad.addEventListener('mousedown', () => playInstrument(id));
     });
 
     // Controles do Sequenciador
@@ -131,34 +127,30 @@ function setupInputs() {
         sequencer.start(audio.init(), onTick);
         btnSeq.classList.add('active');
     }
-        
-    
+         
     btnStop.onclick = () => {
         sequencer.stop();
-        
         btnSeq.classList.remove('active');
     }
-    document.getElementById('clear-grid').onclick = () => {
+    getById('clear-grid').onclick = () => {
         
         sequencer.clear();
         ui.renderGrid('sequencer-grid-container', currentPath);
     };
 
-    
-
     // BPM
-    const bpmSlider = document.getElementById('bpm');
-    bpmSlider.oninput = () => {
-        sequencer.tempo = Number(bpmSlider.value);
-        document.getElementById('bpmValue').innerText = sequencer.tempo;
-    };
-
+    const bpmSlider = getById('bpm');
+        bpmSlider.oninput = () => {
+            sequencer.tempo = Number(bpmSlider.value);
+            getById('bpmValue').innerText = sequencer.tempo;
+        };
     // Kits
     ['heavy', 'normal', 'light', 'perc'].forEach(id => {
-        document.getElementById(id).onclick = () => changeKit(id);
+        console.log(id)
+        getById(id).onclick = () => changeKit(id);
     });
 
-    document.querySelectorAll('.eq-band input').forEach(input => {
+   getAll('.eq-band input').forEach(input => {
         input.addEventListener('input', (e) => {
             updateAudioParams();
             const valSpan = e.target.previousElementSibling.querySelector('span');
