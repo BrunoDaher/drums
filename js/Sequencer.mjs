@@ -6,11 +6,24 @@ export class Sequencer {
         this.currentStep = 0;
         this.nextNoteTime = 0.0;
         this.timerID = null;
+        this.steps = 16;
     }
 
     setupGrid(instruments) {
         instruments.forEach(inst => {
-            if (!this.grid[inst]) this.grid[inst] = Array(16).fill(false);
+            if (!this.grid[inst]) this.grid[inst] = Array(this.steps).fill(false);
+        });
+    }
+
+    setSteps(newSteps) {
+        const oldGrid = { ...this.grid };
+        this.steps = newSteps;
+        this.currentStep = this.currentStep % this.steps;
+
+        Object.keys(this.grid).forEach(inst => {
+            this.grid[inst] = Array(this.steps).fill(false).map((_, i) => {
+                return (oldGrid[inst] && oldGrid[inst][i]) || false;
+            });
         });
     }
 
@@ -38,7 +51,7 @@ export class Sequencer {
     _advanceNote() {
         const secondsPerBeat = 60.0 / this.tempo;
         this.nextNoteTime += 0.25 * secondsPerBeat;
-        this.currentStep = (this.currentStep + 1) % 16;
+        this.currentStep = (this.currentStep + 1) % this.steps;
     }
 
     clear() {

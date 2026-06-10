@@ -144,9 +144,19 @@ function setupInputs() {
             sequencer.tempo = Number(bpmSlider.value);
             getById('bpmValue').innerText = sequencer.tempo;
         };
+
+    // Controle de Passos (8 ou 16)
+    const stepSelect = getById('step-count');
+    if (stepSelect) {
+        stepSelect.onchange = () => {
+            sequencer.setSteps(Number(stepSelect.value));
+            ui.renderGrid('sequencer-grid-container', currentPath);
+        };
+    }
+
     // Kits
     ['heavy', 'normal', 'light', 'perc'].forEach(id => {
-        console.log(id)
+        
         getById(id).onclick = () => changeKit(id);
     });
 

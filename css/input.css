@@ -77,13 +77,6 @@ input[type=range]::-moz-range-track {
 }
 
 
-aside.off{
-  display: none;
-}
-
-aside.on{
-  display: flex;
-}
 
 button{
       box-shadow: -1px 0px 4px black;
@@ -99,10 +92,10 @@ button{
 
 #modelos  > button{
 
-      color: white;
+        color: white;
     margin: 1vh;
+    height: stretch;
     font-size: 1rem;
-    height: 6vh;
     
 
 }

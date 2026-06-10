@@ -37,7 +37,7 @@
     aside{
 
         
-        flex:40%;
+
         font-size:2vh;
         margin:2vh;
         background-color: #333;
@@ -50,6 +50,14 @@
         box-shadow: 0 0 5px 1px #041019;
 
     }
+
+aside.off{
+  display: none;
+}
+
+aside.on{
+  display: flex;
+}
 
     .card{
 
@@ -77,14 +85,15 @@
     }
 
     #modelos{
-        width:20%; position: absolute; top:0; left:0; margin:2vh;
+        width:20%; 
+        position: absolute; 
+        top:0; 
+        height:stretch;
+        right:0;
+        margin:2vh;
     }
 
-    #modelos:hover{
-        cursor: pointer;
-        z-index: 40;
-    }
-
+    
     .keymap-list{
         display: flex;
         flex-direction: column;

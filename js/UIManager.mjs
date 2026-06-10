@@ -18,9 +18,8 @@ export class UIManager {
             row.innerHTML = `
                 
                 <span class="inst-label">
-                <img src="${src}" class="inst-thumb">
-                  ${inst}
-                </span>
+                <a style='min-width: 15%;'>${inst}</a>
+                
                 <div class="steps-container flex row justBetween w100" id="steps-${inst}"></div>
             `;
 

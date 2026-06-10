@@ -5,6 +5,12 @@
 }
 
 
+.miniBg{
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
 @keyframes ataque {
     0% {
         transform: skewX(-2deg)
@@ -38,19 +44,34 @@ span.active, span:hover{
         }
 
         .eq-band {
-            width: 30vh;
-            text-align: left;
+                height: stretch;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: space-between;
+            
+
         }
 
         .eq-band label {
+            flex-basis: 15%;
             display: block;
             margin-bottom: 3px;
             font-size: 0.85rem;
             color: #f0f0f0;
         }
 
+        .eq-band div{
+            position: relative;
+            align-items: center;
+            display: flex;
+            flex-basis: 85%;
+        }
+
         .eq-band input {
-            width: 100%;
+            rotate: -90deg;
+
+            -webkit-appearance: none;
         }
 
      

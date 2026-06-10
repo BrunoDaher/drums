@@ -11,23 +11,23 @@
 
 <body class="flex-column justContBetween ">
     
-    <header class="main-header flex ">    
+    <header class="main-header flex" style="padding:3vh">    
            
         <span class="showDesk flex-row" style="align-items:center;gap:1vh">
             <img src ="vendor/favico.png"class='logo'  alt="logo">
             Bunny Drums
         </span>
 
-        <div class="flex-row  w100" style="gap:2vh">
+        <div id="menuBotoes" class="flex-row  w100" style="gap:2vw">
             
             <button class="showDesk active flex-row btnAside" data-target="keys-container" style="align-items:center;gap:1vh">
                 <i class="bi-keyboard"></i>
                 Teclas
             </button>
 
-            <button class="active flex-row btnAside" data-target="batera" style="align-items:center;gap:1vh">
-                <img src="./imgs/normal/caixa.svg" class="inst-thumb">
-                Batera
+            <button class="active flex-row btnAside" data-target="batera" style="align-items:center">
+                <img src="./imgs/heavy/bumbo.png" class="inst-thumb">
+                <span>Batera</span>
             </button>
           
             <button class="flex-row btnAside" data-target="divSequencer" style="align-items:center;gap:1vh">
@@ -38,7 +38,6 @@
                 <i class="bi-bar-chart-fill"></i>
                 Equalizer
             </button>
-           
         </div>
             
     </header>
@@ -73,41 +72,48 @@
         <aside id="equalizer" class="off sideMenu flex-column justAround" aria-label="Equalizador">
             <span class="">Equalizer</span>
 
-            <article class="flex-column justCenter eq-panel">
+            <section class="flex-row justCenter eq-panel" style="flex-basis:75%">
             
                 <div class="eq-band">
                     <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
-                    <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+                    <div>
+                        <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+                    </div>
                 </div>
+
                 <div class="eq-band">
                     <label for="midGain">Médios <span id="midValue">0</span>dB</label>
-                    <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+                    <div>
+                        <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+                    </div>
                 </div>
+
                 <div class="eq-band">
                     <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
-                    <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
+                    <div>
+                        <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
+                    </div>
                 </div>
             
                 <div class="eq-band">
                     <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
-                    <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
-                </div>
-                <div class="eq-band">
-                    <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
-                    <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+                    <div>
+                        <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
+                    </div>
                 </div>
 
-            <article>
+                <div class="eq-band">
+                    <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
+                    <div>
+                        <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+                    </div>
+                </div>
+
+            </section>
+
         </aside>
 
         <article id="batera" class="w100 sideMenu flex justCenter" style="position: relative;">
-                
-            <section id="modelos" class="w20 flex-column">
-                <button id="heavy"  class="btnModelo">Heavy</button>
-                <button id="normal" class="btnModelo">Normal</button>
-                <button id="light"  class="btnModelo">Light</button>
-                <button id="perc"   class="btnModelo">Percussão</button>
-            </section>
         
             <section id="drumkit"  class="off drum-kit flex justCenter" 
                 style="position:relative;" >
@@ -154,33 +160,69 @@
                     <small class="label clip">z</small>
                 </span>
             </section>
+
+            <section id="modelos" class="flex-column">
+                <button id="heavy"  class="btnModelo">Heavy</button>
+                <button id="normal" class="btnModelo">Normal</button>
+                <button id="light"  class="btnModelo">Light</button>
+                <button id="perc"   class="btnModelo">Percussão</button>
+            </section>
         
         </article>
 
          <article id="divSequencer" class="off sideMenu  flex w100 ">
 
-            <article id="sequencer-meta-controls" class="flex-column justAround">
-                
-                    <label for="bpm">
-                        <span id="bpmValue">125</span> 
-                        BPM
-                    </label>
+            <article id="sequencer-meta-controls" class="flex-column justBetween">
+                <section class="box flex-column" style="height: 80%;">
 
-                <div style="rotate: -90deg;">
-                            <input id="bpm" type="range" min="60" max="220" step="1" value="125">
+                    <div class="boxHeader" style="flex-basis: 10%;">
+                        
+                        <select id="step-count">
+                            <option value="16">16 Passos</option>
+                            <option value="8">8 Passos</option>
+                            <option value="4">4 Passos</option>
+                            <option value="2">2 Passos</option>
+                        </select>
+
                     </div>
-                <button id="clear-grid" style="font-size: 0.8rem; border: 1px solid #555; padding: 5px 10px; border-radius: 4px;">Limpar Tudo</button>
 
-                  <article >
-                <button id="seq" class="eq-button" aria-label="playseq"
-                    style="font-size: 35px;">
-                    <i class="bi-play-fill"></i>
-                </button>
-                <button id="stop" class="eq-button" aria-label="stopseq"
-                    style="font-size: 35px;">
-                    <i class="bi-stop-fill"></i>
-                </button>
-            </article>
+
+                     <div class="boxBody flex-column flex-around" style="flex-basis: 80%;">
+                        <input id="bpm" type="range" min="60" max="220" step="1" value="125" style="
+                                width: 12em;
+                                rotate: -90deg;
+                                translate: 0 80px;
+                            ">
+                    </div>
+
+                    <div class="boxFooter flex-column" style="flex-basis: 10%;">
+                        
+                        <label for="bpm" >
+                            <small id="bpmValue">125
+                            </small> 
+                            <small> BPM</small>
+                        </label>
+                    </div>
+
+                </section>
+
+                
+
+                  <section class="flex justAround w100">
+                    <button id="seq" class="eq-button" aria-label="playseq"
+                            style="font-size: 25px;">
+                            <i class="bi-play-fill"></i>
+                        </button>
+                        <button id="stop" class="eq-button" aria-label="stopseq"
+                            style="font-size: 25px;">
+                            <i class="bi-stop-fill"></i>
+                        </button>
+                        <button id="clear-grid" class="eq-button" aria-label="reset"
+                            style="font-size: 25px;">
+                            <i class="bi-arrow-counterclockwise"></i>
+                        </button>
+                 </section>
+
             </article>
 
             <section id="sequencer-grid-container" class="flex-column"></section>
@@ -189,7 +231,7 @@
 
     </main>
 
-    <footer class="flex" >
+    <footer class="flex showDesk" >
         Bruno Oliveira
     </footer>
 
