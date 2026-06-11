@@ -40,6 +40,9 @@ input.vert::-webkit-slider-thumb {
   margin-top: 0; 
 }
 
+.btnMain{
+  font-size: 2.5vh;
+}
 
 .btnMain.active{
   animation: main 0.5s ease-in-out forwards;

@@ -14,7 +14,6 @@
 
     @media (orientation: portrait)  {
         main, footer {
-
             display:none !important;
         }
 
@@ -35,26 +34,36 @@
 
  @media (orientation: landscape)  and (max-width:850px) {
 
-     #keys-container{
-         display:none !important   
-        }
-
-            
-            #controles{
+        #keys-container{
+                display:none !important   
+            }
                 
+            #controles{
                 & > *{
-                    
                     font-size: 3vh;
                 }
-                
             }
 
-       
-
             #drumkit{
-
                 transform:translateX(40vw) scale(1.8);
 
+            }
+
+
+
+            @media (display-mode: browser) {
+                footer{
+                    display:none !important;
+                }
+
+                header{
+                    
+                }
+
+
+                main{
+                    height: 77vh !important;
+                }
             }
 
         }
