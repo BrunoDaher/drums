@@ -45,7 +45,7 @@
             }
 
             #drumkit{
-                transform:translateX(40vw) scale(1.8);
+                transform:translateX(40vw) translateY(4vh) scale(2.4);
 
             }
 

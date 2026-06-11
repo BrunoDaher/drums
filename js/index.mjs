@@ -50,7 +50,7 @@ const btnSeq = getById('seq');
 const btnStop = getById('stop');
 
 btnsMain.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('pointerdown', () => {
         //self
         btnsMain.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
@@ -60,13 +60,13 @@ btnsMain.forEach(btn => {
 });
 
 btnsAside.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('pointerdown', () => {
         hideAll('.sideMenu');
     });
 });
 
 btnsModelo.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('pointerdown', () => {
         btnsModelo.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
         changeKit(btn.getAttribute('data-target'));
@@ -125,16 +125,16 @@ function setupInputs() {
     });
 
     // Controles do Sequenciador
-    btnSeq.onclick = () => {
+    btnSeq.onpointerdown = () => {
         sequencer.start(audio.init(), onTick);
         btnSeq.classList.add('active');
     }
          
-    btnStop.onclick = () => {
+    btnStop.onpointerdown = () => {
         sequencer.stop();
         btnSeq.classList.remove('active');
     }
-    getById('clear-grid').onclick = () => {
+    getById('clear-grid').onpointerdown = () => {
         
         sequencer.clear();
         ui.renderGrid('sequencer-grid-container', currentPath);
@@ -159,7 +159,7 @@ function setupInputs() {
     // Kits
     ['heavy', 'normal', 'light', 'perc'].forEach(id => {
         
-        getById(id).onclick = () => changeKit(id);
+        getById(id).onpointerdown = () => changeKit(id);
     });
 
    getAll('.eq-band input').forEach(input => {
