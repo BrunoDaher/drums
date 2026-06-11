@@ -1,104 +1,89 @@
-input[type="range" i] {
-    appearance: none;
 
-    height: clamp(1.5rem, 2.8vw, 2rem);
 
-     -webkit-appearance: none; /* Remove o estilo padrão no Chrome/Safari */
-  appearance: none;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  background: transparent; /* Deixa o fundo transparente */
+input.vert, input[type="range" i], input[type=range] {
 
-}
-input[type=range] {
+   writing-mode: vertical-lr; 
+  direction: rtl; 
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  background: transparent;
+  
+  /* 1. COMPRIMENTO: Define a altura dele em pé na tela */
+  height: 45vh; 
+  
+  /* 2. ESPESSURA DA CAIXA: Deve ser igual ou maior que a ALTURA do botão */
+  width: clamp(1.2vh, 1.8vh, 2vh); 
+  
+  background: #333333;                 
   outline: none;
+  cursor: grabbing;
 }
 
 /* --- O BOTÃO (FADER) --- */
 
 /* Chrome, Safari e Edge */
-input[type=range]::-webkit-slider-thumb {
+input.vert::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: clamp(1.3rem, 2.6vw, 1.8rem);
-  width: clamp(0.6rem, 1.2vw, 0.9rem);
-  border-radius: 2px;
-  background: #1a1a1a; /* Cor cinza escuro de mesa */
-  /* Cria a linha central branca clássica do fader */
-  border-left: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
-  border-right: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
-  box-shadow: 
-    inset 0 0 0 2px #ffffff, /* Linha branca no meio */
-    0 3px 6px rgba(0,0,0,0.4); /* Sombra para dar volume */
+  appearance: none;
+  
+  
+  width: 2em; /* <--- Altere aqui para controlar a largura do fader! */
+  
+  /* 4. ALTURA DO BOTÃO: Define a altura da peça que você arrasta */
+  height: clamp(1.5vh, 2.7vh, 1.4vh); 
+  
+  /* Seus estilos visuais mantidos */
+  
+
+  box-shadow: inset 0px -1px 8px 5px #0e0716;
+  
   cursor: grab;
-  margin-top: clamp(-0.7rem, -1.2vw, -0.9rem);  /* Ajuste para centralizar no trilho */
+  margin-top: 0; 
 }
 
-input[type=range]:active::-webkit-slider-thumb {
-  cursor: grabbing;
+
+.btnMain.active{
+  animation: main 0.5s ease-in-out forwards;
 }
-
-/* Firefox */
-input[type=range]::-moz-range-thumb {
-  height: clamp(1.3rem, 2.6vw, 1.8rem);
-  width: clamp(0.6rem, 1.2vw, 0.9rem);
-  border-radius: 2px;
-  background: #1a1a1a;
-  border-left: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
-  border-right: clamp(0.35rem, 0.8vw, 0.5rem) solid #1a1a1a;
-  box-shadow: inset 0 0 0 2px #ffffff, 0 3px 6px rgba(0,0,0,0.4);
-  cursor: grab;
-}
-
-/* --- O TRILHO (CORTES NA MESA) --- */
-
-/* Chrome, Safari e Edge */
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: clamp(0.35rem, 0.8vw, 0.5rem);
-  background: #333; /* Cor da fenda escura */
-  border-radius: 4px;
-  border: 1px solid #555;
-}
-
-/* Firefox */
-input[type=range]::-moz-range-track {
-  width: 100%;
-  height: clamp(0.35rem, 0.8vw, 0.5rem);
-  background: #333;
-  border-radius: 4px;
-  border: 1px solid #555;
-}
-
 
 
 button{
-      box-shadow: -1px 0px 4px black;
+  
     border-radius: 5px;
 
     &:focus-visible, &:hover, &.active{
-      scale: 1.1;
       cursor: pointer;
-      background-color: #222;
-      transition: all 0.5s;
+      color: #2ce038;
+      transform: translateY(-1px) scale(1.2);
+      transition: all 1s;
     }
 }
 
-#modelos  > button{
 
-        color: white;
-    margin: 1vh;
-    height: stretch;
-    font-size: 1rem;
-    
-
+input, button{
+    /* Bloqueia a seleção de texto e os destaques nativos de toque */
+  -webkit-user-select: none;  /* Safari/Chrome iOS */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE/Edge antigo */
+  user-select: none;          /* Padrão moderno (Android/Chrome) */
+  
+  /* Remove o brilho azul azulado ao tocar no celular (Android/iOS) */
+  -webkit-tap-highlight-color: transparent; 
 }
+
+@keyframes main {
+    0%{
+        
+    }
+    80%{
+        
+        
+    }
+    100%{
+        box-shadow: none;
+    }
+}
+
+
 
 #seq.active{
   color:green;
@@ -110,15 +95,12 @@ button{
   border: none;
   cursor: pointer;
   color:white;
+  padding: 2vh;
 }
 
 .card:hover{
-
-    
     color: white;
     cursor: pointer;
     box-shadow: 1px 1px 8px 3px black;
     transition: all 0.5s;
-    
-  
 }

@@ -30,48 +30,24 @@ span.active, span:hover{
       /*background-color: #333;*/
       
    }
+.mainMenu{
+    animation: activeMenu 1s ease forwards;
+}
 
-.sideMenu.off{
+
+.mainMenu.off{
     display: none;
    }
 
-        .eq-panel {
-            
-            width:fit-content;
-            gap: 3vh;
-            padding: 10px 15px;
-            
-        }
 
-        .eq-band {
-                height: stretch;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    justify-content: space-between;
-            
-
-        }
-
-        .eq-band label {
-            flex-basis: 15%;
-            display: block;
-            margin-bottom: 3px;
-            font-size: 0.85rem;
-            color: #f0f0f0;
-        }
-
-        .eq-band div{
-            position: relative;
-            align-items: center;
-            display: flex;
-            flex-basis: 85%;
-        }
-
-        .eq-band input {
-            rotate: -90deg;
-
-            -webkit-appearance: none;
-        }
-
-     
+@keyframes activeMenu {
+    0%{
+        box-shadow:none;
+    }
+    20%{
+        box-shadow: inset 0px 0px 0px 0px #117e118f;
+    }
+    100%{
+        box-shadow: inset 1px 1px 6px 1px #117e118f;
+    }
+}

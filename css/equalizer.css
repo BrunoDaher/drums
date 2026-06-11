@@ -1,0 +1,46 @@
+
+
+legend{
+        gap: 1vh;
+    background: #0000004a;
+    padding: 2vh;
+    font-size: 2vh;
+     text-align: start; 
+    justify-content: start;
+}
+
+#equalizer{
+    padding: 4vh;
+}
+
+.eq-panel {
+    gap: 3vh;
+}
+
+.eq-band input{
+    height: 70%;
+}
+
+.eq-band {
+    
+    height: auto;
+    display: flex;
+    flex-direction:column-reverse;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.eq-band label {
+    display: block;
+    margin-bottom: 3px;
+    color: #f0f0f0;
+}
+
+.eq-band div{
+    position: relative;
+    align-items: center;
+    display: flex;
+}
+
+

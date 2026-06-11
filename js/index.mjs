@@ -41,25 +41,27 @@ const sequencer = new Sequencer();
 const ui = new UIManager(sequencer);
 
 const btnsAside = getAll('.btnAside');
+const btnsMain = getAll('.btnMain');
 const sideMenu = getAll('.sideMenu');
+const mainMenu = getAll('.mainMenu');
 const btnsModelo = getAll('.btnModelo');
 
 const btnSeq = getById('seq');
 const btnStop = getById('stop');
 
-btnsAside.forEach(btn => {
+btnsMain.forEach(btn => {
     btn.addEventListener('click', () => {
         //self
-        
-        
-        btnsAside.forEach(btn => btn.classList.remove('active'));
+        btnsMain.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
-
-        hideAll('.sideMenu');
-        
-        
-        
+        hideAll('.mainMenu');
         getTarget(btn).classList.remove('off');
+    });
+});
+
+btnsAside.forEach(btn => {
+    btn.addEventListener('click', () => {
+        hideAll('.sideMenu');
     });
 });
 

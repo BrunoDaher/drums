@@ -2,20 +2,37 @@
 /* Sequencer UI */
 #sequencer-grid-container {
     background: rgba(0, 0, 0, 0.3);
-    height: stretch;
-    gap:2vh;
-    padding: 4vh;
-    width: 100%;
-    overflow: scroll;
+    height: 100%;
+    gap: 2vh;
+    justify-content: center;
+    overflow-y: scroll;
 }
 
+
 #sequencer-meta-controls{
-        gap: 3vh;
-    justify-content: end;
-        width: 25%;
-        height: 100%;
-        align-items: center;
+    width: 25%;
+    height: 100%;
+    align-items: center;
 }
+
+#controlSeq{
+        
+    align-items: center;
+    gap: 2vh;
+}
+
+#controlSeq > button{
+        font-size: 5vh;
+    align-items: center;
+        background: black;
+    padding: 2vh;
+
+    &:hover{
+        background-color:#00ff88;
+    }
+}
+
+
 
 .sequencer-row {
     display: flex;
@@ -30,17 +47,24 @@
     filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
 }
 
+
+
 .inst-label {
     display: flex;
     justify-content: start;
-    gap: 2vh;
-    width: 100%;
+    gap: 3vh;
+    width: 90%;
     min-width: 20%;
     align-items: center;
     text-align: end;
     font-size: 0.7rem;
     color: #ccc;
     text-transform: capitalize;
+
+    &>a{
+        min-width: 10%;
+        font-size: 1.5vh;
+    }
 }
 
 .steps-container {
@@ -51,18 +75,30 @@
 
 .step {
     flex: auto;
-    height: 6vh;
-    background: #333;
-    border-radius: 2px;
-    cursor: pointer;
+    height: 5vh;
+    width: 5.5vh;
+    background:black;
+    border-radius: 1vh;
+    cursor:cell
 }
 
-.step.active {
+.step.active {  
     background: #00ff88;
-    box-shadow: 0 0 5px #00ff88;
 }
 
 .step.current {
-    background: #00ff880d;
-    transform: scale(1.1);
+    filter: blur(3px) brightness(4.5) saturate(1.5);
+    background: #15b31538;
 }
+
+ #step-count{
+   outline: none;
+    font-size: 2vh;
+    background: rgba(128, 0, 128, 0.373);
+    color: white;
+    padding: 2vh;
+    border-radius: 1vh;
+    border: none;
+    box-shadow: 1px 2px 15px 2px black;
+ }  
+       

@@ -1,40 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="w100">
 
 <head>
     <meta charset="UTF-8">
     <title>BunnyDrum</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/png" href="vendor/favico.png" /></head>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body class="flex-column justContBetween ">
+<body class="flex-column justContBetween w100">
     
-    <header class="main-header flex" style="padding:3vh">    
-           
-        <span class="showDesk flex-row" style="align-items:center;gap:1vh">
-            <img src ="vendor/favico.png"class='logo'  alt="logo">
-            Bunny Drums
-        </span>
-
-        <div id="menuBotoes" class="flex-row  w100" style="gap:2vw">
-            
-            <button class="showDesk active flex-row btnAside" data-target="keys-container" style="align-items:center;gap:1vh">
-                <i class="bi-keyboard"></i>
-                Teclas
-            </button>
-
-            <button class="active flex-row btnAside" data-target="batera" style="align-items:center">
+    <header class="main-header flex" style="height:10vh">    
+        
+        <div id="menuBotoes" class="flex-row  w100" style="gap:2vw; padding-inline:3vh">
+         
+            <button class="active flex-row btnMain" data-target="batera" style="align-items:center">
                 <img src="./imgs/heavy/bumbo.png" class="inst-thumb">
-                <span>Batera</span>
+                Batera
             </button>
           
-            <button class="flex-row btnAside" data-target="divSequencer" style="align-items:center;gap:1vh">
+            <button class="flex-row btnMain" data-target="divSequencer" style="align-items:center;gap:1vh">
                 <i class="bi-keyboard"></i>
                 Sequencer
             </button>
-            <button class="flex-row btnAside" data-target="equalizer" style="align-items:center;gap:1vh">
+            <button class="flex-row btnMain" data-target="equalizer" style="align-items:center;gap:1vh">
                 <i class="bi-bar-chart-fill"></i>
                 Equalizer
             </button>
@@ -46,16 +36,63 @@
         Vire o celular na horizontal
     </span>
      
-    <main class="flex-row justBetween">
+    <main class="flex-row justBetween" style="height: 87vh;">
 
-        <aside id="keys-container" class="off sideMenu flex-column justAround">
-                <span>Mapa de Teclas</span>
-            <div class="keymap-list" aria-label="Mapa de teclas">
+        <article id="equalizer" class="off mainMenu w100 flex-row justAround" aria-label="Equalizador">
+         
+            <section class=" flex-column justCenter">
+                <legend class="bi-graph-up flex-row">Equalizer</legend>
+                <article class="eq-panel flex-row justCenter">
+                    
+                        <div class="eq-band">
+                            <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
+                            <input class="vert" id="lowGain" type="range" min="-12" max="12" step="1" value="0">
+                        </div>
+
+                        <div class="eq-band">
+                            <label for="midGain">Médios <span id="midValue">0</span>dB</label>
+                            <input class="vert"id="midGain" type="range" min="-12" max="12" step="1" value="-10">
+                        </div>
+
+                        <div class="eq-band">
+                            <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
+                            <input class="vert" id="highGain" type="range" min="-12" max="12" step="1" value="0">
+                        </div>
+
+                </article>
+            </section>
+
+             <section class=" flex-column justCenter">
+                <legend class="bi-graph-up flex-row">Reverb</legend>
+                <article class="eq-panel flex-row justCenter">
+                    
+                       
+                <div class="eq-band">
+                    <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
+                    <input class="vert" id="reverbWet" type="range" min="0" max="100" step="1" value="0">
+                </div>
+
+                <div class="eq-band">
+                    <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
+                    <input class="vert" id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
+                </div>
+
+                </article>
+            </section>
+
+        </article>
+
+        <article id="batera" class="flex-row mainMenu justBetween w100" style="position: relative;">
+            
+            <aside id="keys-container" class="deskShow">
+                <h3>Mapa de Teclas</h3>
+                <section class="keymap-list" aria-label="Mapa de teclas">
                 <div class="keymap-header keymap-row">
                     <div class="label">Inst</div>
                     <div class="key">Tecla</div>
                 </div>
-                <div class="keymap-row"><div class="label">Caixa</div><div class="key">a ou l</div></div>
+                <div class="keymap-row">
+                <div class="label">Caixa</div><div class="key">a ou l</div></div>
                 <div class="keymap-row"><div class="label">Bumbo</div><div class="key">c</div></div>
                 <div class="keymap-row"><div class="label">Surdo</div><div class="key">m</div></div>
                 <div class="keymap-row"><div class="label">Tom</div><div class="key">u</div></div>
@@ -66,116 +103,76 @@
                 <div class="keymap-row"><div class="label">Crash</div><div class="key">o</div></div>
                 <div class="keymap-row"><div class="label">Ataque</div><div class="key">p</div></div>
                 <div class="keymap-row"><div class="label">Bloco</div><div class="key">z</div></div>
-            </div>
-        </aside>
+                </section>
 
-        <aside id="equalizer" class="off sideMenu flex-column justAround" aria-label="Equalizador">
-            <span class="">Equalizer</span>
-
-            <section class="flex-row justCenter eq-panel" style="flex-basis:75%">
-            
-                <div class="eq-band">
-                    <label for="lowGain">Graves <span id="lowValue">0</span>dB</label>
-                    <div>
-                        <input id="lowGain" type="range" min="-12" max="12" step="1" value="0">
-                    </div>
-                </div>
-
-                <div class="eq-band">
-                    <label for="midGain">Médios <span id="midValue">0</span>dB</label>
-                    <div>
-                        <input id="midGain" type="range" min="-12" max="12" step="1" value="-10">
-                    </div>
-                </div>
-
-                <div class="eq-band">
-                    <label for="highGain">Agudos <span id="highValue">0</span>dB</label>
-                    <div>
-                        <input id="highGain" type="range" min="-12" max="12" step="1" value="0">
-                    </div>
-                </div>
-            
-                <div class="eq-band">
-                    <label for="reverbWet">Reverb <span id="reverbWetValue">0</span>%</label>
-                    <div>
-                        <input id="reverbWet" type="range" min="0" max="100" step="1" value="0">
-                    </div>
-                </div>
-
-                <div class="eq-band">
-                    <label for="reverbDuration">Duração <span id="reverbDurationValue">1.2</span>s</label>
-                    <div>
-                        <input id="reverbDuration" type="range" min="0.3" max="3" step="0.1" value="1.2">
-                    </div>
-                </div>
-
-            </section>
-
-        </aside>
-
-        <article id="batera" class="w100 sideMenu flex justCenter" style="position: relative;">
+            </aside>
         
-            <section id="drumkit"  class="off drum-kit flex justCenter" 
-                style="position:relative;" >
-                
-                <span id="caixa" style="background-image: url(./imgs/normal/caixa.svg)" class="drum img" data-key="a">
+            <section id="drumkit" class="off drum-kit flex justCenter" style="
+    z-index: 10;
+    /* background: azure; */
+    opacity: 1;
+">
+                <span id="caixa" style="/* background-image: url(./imgs/normal/caixa.png); */" class="drum img" data-key="a">
                     <small class="label clip">a ou l</small>
                 </span>
-                <span id="bumbo" style="background-image: url(./imgs/normal/bumbo.svg)" class="drum img" data-key="c">
+                <span id="bumbo" style="background-image: url(./imgs/normal/bumbo.png)" class="drum img" data-key="c">
                     <small class="label clip">c</small>
                 </span>
 
-                <span id="surdo" style="background-image: url(./imgs/normal/surdo.svg)" class="drum img" data-key="m">
+                <span id="surdo" style="background-image: url(./imgs/normal/surdo.png)" class="drum img" data-key="m">
                     <small class="label clip">m</small>
                 </span>
 
-                <span id="tom" style="background-image: url(./imgs/normal/tom.svg)" class="drum img" data-key="o">
+                <span id="tom" style="background-image: url(./imgs/normal/tom.png)" class="drum img" data-key="o">
                     <small class="label clip">o</small>
                 </span>
 
-                <span id="chimbau" style="background-image: url(./imgs/normal/chimbau.svg)" class="drum img" data-key="k">
+                <span id="chimbau" style="background-image: url(./imgs/normal/chimbau.png)" class="drum img" data-key="k">
                     <small class="label clip">k</small>
                 </span>
-                <span id="chimbauOp" style="background-image: url(./imgs/normal/chimbauOp.svg)" class="drum img" data-key="i">
+                <span id="chimbauOp" style="background-image: url(./imgs/normal/chimbauOp.png)" class="drum img" data-key="i">
                     <small class="label clip">I</small>
                 </span>
 
-                <span id="conducao" style="background-image: url(./imgs/normal/conducao.svg)" class="drum img" data-key=";">
+                <span id="conducao" style="background-image: url(./imgs/normal/conducao.png)" class="drum img" data-key=";">
                     <small class="label clip">;</small>
                 </span>
 
-                <span id="sino" style="background-image: url(./imgs/normal/conducao.svg)" class="drum img" data-key="[">
+                <span id="sino" style="background-image: url(&quot;./imgs/normal/sino.png&quot;);" class="drum img" data-key="[">
                     <small class="label clip">[</small>
                 </span>
 
-                <span id="crash" style="background-image: url(./imgs/normal/crash.svg)" class="drum img" data-key="q">
+                <span id="crash" style="background-image: url(./imgs/normal/crash.png)" class="drum img" data-key="q">
                     <small class="label clip">q</small>
                 </span>
 
-                <span id="ataque" style="background-image: url(./imgs/normal/ataque.svg)" class="drum img" data-key="p">
+                <span id="ataque" style="background-image: url(./imgs/normal/ataque.png)" class="drum img" data-key="p">
                     <small class="label clip">p</small>
                 </span>
                 
-                <span id="bloco" style="background-image: url(./imgs/normal/bloco.svg)" class="drum img" data-key="z">
+                <span id="bloco" style="background-image: url(./imgs/normal/bloco.png)" class="drum img" data-key="z">
                     <small class="label clip">z</small>
                 </span>
             </section>
-
-            <section id="modelos" class="flex-column">
-                <button id="heavy"  class="btnModelo">Heavy</button>
-                <button id="normal" class="btnModelo">Normal</button>
-                <button id="light"  class="btnModelo">Light</button>
-                <button id="perc"   class="btnModelo">Percussão</button>
-            </section>
+            
+            <aside id="modelos" class="active">
+                <section class="flex-column justCenter" style="gap:5vh">
+                    <button id="heavy" class="btnModelo">Heavy</button>
+                    <button id="normal" class="btnModelo">Normal</button>
+                    <button id="light" class="btnModelo">Light</button>
+                    <button id="perc" hidden="" class="off btnModelo">Percussão</button>
+                </section>
+            </aside>
         
         </article>
 
-         <article id="divSequencer" class="off sideMenu  flex w100 ">
+         <article id="divSequencer" class="off mainMenu flex w100">
 
-            <article id="sequencer-meta-controls" class="flex-column justBetween">
-                <section class="box flex-column" style="height: 80%;">
+           <section id="sequencer-meta-controls" class="flex-column w100">
+                
+                <section class="h100 flex-column justAround">
 
-                    <div class="boxHeader" style="flex-basis: 10%;">
+                    <div class="boxHeader" style="flex-basis: 10%;align-content: center;">
                         
                         <select id="step-count">
                             <option value="16">16 Passos</option>
@@ -186,53 +183,45 @@
 
                     </div>
 
-
-                     <div class="boxBody flex-column flex-around" style="flex-basis: 80%;">
-                        <input id="bpm" type="range" min="60" max="220" step="1" value="125" style="
-                                width: 12em;
-                                rotate: -90deg;
-                                translate: 0 80px;
-                            ">
+                    <div class="boxBody flex-around" style="align-content: center;">
+                        <input class="vert" id="bpm" type="range" min="60" max="220" step="1" value="125" >
                     </div>
 
-                    <div class="boxFooter flex-column" style="flex-basis: 10%;">
+                    <div class="boxFooter flex-column" style="/* flex-basis: 10%; */justify-content: center;align-items: center;">
                         
-                        <label for="bpm" >
+                        <label for="bpm">
                             <small id="bpmValue">125
                             </small> 
                             <small> BPM</small>
                         </label>
                     </div>
 
+                    <section id="controlSeq" class="flex-row justAround w100">
+                        <button id="seq" class="eq-button" aria-label="playseq" >
+                                <i class="bi-play-fill"></i>
+                            </button>
+                            <button id="stop" class="eq-button" aria-label="stopseq">
+                                <i class="bi-stop-fill"></i>
+                            </button>
+                            <button id="clear-grid" class="eq-button" aria-label="reset">
+                                <i class="bi-arrow-counterclockwise"></i>
+                        </button>
                 </section>
 
-                
+                </section>
 
-                  <section class="flex justAround w100">
-                    <button id="seq" class="eq-button" aria-label="playseq"
-                            style="font-size: 25px;">
-                            <i class="bi-play-fill"></i>
-                        </button>
-                        <button id="stop" class="eq-button" aria-label="stopseq"
-                            style="font-size: 25px;">
-                            <i class="bi-stop-fill"></i>
-                        </button>
-                        <button id="clear-grid" class="eq-button" aria-label="reset"
-                            style="font-size: 25px;">
-                            <i class="bi-arrow-counterclockwise"></i>
-                        </button>
-                 </section>
+            </section>
 
-            </article>
+            <section id="sequencer-grid-container" class="flex-column w100">
 
-            <section id="sequencer-grid-container" class="flex-column"></section>
+            </section>
                 
         </article>
 
     </main>
 
-    <footer class="flex showDesk" >
-        Bruno Oliveira
+    <footer class="flex " style="height:3vh">
+
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>

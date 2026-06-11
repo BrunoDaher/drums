@@ -10,17 +10,17 @@ export class UIManager {
 
         Object.keys(this.sequencer.grid).sort().forEach(inst => {
             const row = document.createElement('div');
-            row.className = 'sequencer-row w100';
+            row.className = 'sequencer-row';
             
-            let ext = path =="normal" ? 'svg' : 'png';
+            let ext = path =="normal" ? 'png' : 'png';
             let src = (`./imgs/${path}/${inst}.${ext}`);
 
             row.innerHTML = `
                 
-                <span class="inst-label">
-                <a style='min-width: 15%;'>${inst}</a>
+                <span class="inst-label w100">
+                <a>${inst}</a>
                 
-                <div class="steps-container flex row justBetween w100" id="steps-${inst}"></div>
+                <div class="steps-container w100 flex row justBetween" id="steps-${inst}"></div>
             `;
 
             const stepsContainer = row.querySelector('.steps-container');
@@ -53,7 +53,7 @@ export class UIManager {
     updateKitVisuals(path, instruments) {
         
         instruments.forEach(inst => {
-            let ext = path =="normal" ? 'svg' : 'png';
+            let ext = path =="normal" ? 'png' : 'png';
             const el = document.getElementById(inst);
             if (el) el.style.backgroundImage = `url(./imgs/${path}/${inst}.${ext})`;
         });
