@@ -33,10 +33,7 @@
 
 }
 
- @media (orientation: landscape)  and (max-width:750px) {
-
-    
-
+ @media (orientation: landscape)  and (max-width:850px) {
 
      #keys-container{
          display:none !important   

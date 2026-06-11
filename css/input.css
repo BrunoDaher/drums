@@ -53,6 +53,7 @@ button{
     &:focus-visible, &:hover, &.active{
       cursor: pointer;
       color: #2ce038;
+      
       transform: translateY(-1px) scale(1.2);
       transition: all 1s;
     }

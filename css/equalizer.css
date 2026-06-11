@@ -18,7 +18,8 @@ legend{
 }
 
 .eq-band input{
-    height: 70%;
+    height: 60vh;
+    padding-block:1vh;
 }
 
 .eq-band {
