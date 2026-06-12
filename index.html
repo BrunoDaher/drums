@@ -10,10 +10,15 @@
 </head>
 
 <body class="flex-column justContBetween w100">
+
+     <span id="advise" class="bi-phone-fill flex" style="font-size: 1em; gap:1vh">
+        Vire o celular na horizontal
+    </span>
+     
     
-    <header class="main-header flex" style="height:10vh">    
+    <header class="main-header landShow flex" style="height:12vh">    
         
-        <div id="menuBotoes" class="flex-row  w100" style="gap:2vw; padding-inline:3vh">
+        <div id="menuBotoes" class="flex-row landShow  w100">
          
             <button class="active flex-row btnMain" data-target="batera" style="align-items:center">
                 <img src="./imgs/heavy/bumbo.png" class="inst-thumb">
@@ -21,7 +26,7 @@
             </button>
           
             <button class="flex-row btnMain" data-target="divSequencer" style="align-items:center;gap:1vh">
-                <i class="bi-keyboard"></i>
+                <i class="bi-back"></i>
                 Sequencer
             </button>
             <button class="flex-row btnMain" data-target="equalizer" style="align-items:center;gap:1vh">
@@ -31,17 +36,13 @@
         </div>
             
     </header>
-    
-    <span id="advise" class="bi-phone-fill flex" style="font-size: 1em; gap:1vh">
-        Vire o celular na horizontal
-    </span>
-     
+   
     <main class="flex-row justBetween" >
 
         <article id="equalizer" class="off mainMenu w100 flex-row justCenter" aria-label="Equalizador">
          
             <section class="card">
-                <legend class="bi-graph-up flex-row">Equalizer</legend>
+                <legend class="bi-bar-chart-line-fill flex-row">Equalizer</legend>
                 <article class="eq-panel flex-row justCenter">
                     
                         <div class="eq-band">
@@ -63,7 +64,7 @@
             </section>
 
              <section class="card">
-                <legend class="bi-graph-up flex-row">Reverb</legend>
+                <legend class="bi-soundwave flex-row">Reverb</legend>
                 <article class="eq-panel flex-row justCenter">
                     
                        
@@ -157,7 +158,7 @@
             
             <aside id="modelos" class="active ">
                 <section class=" flex-column justBetween h100">
-                    <button id="mobile" class="btnModelo">Mobile</button>
+                    <!--<button id="mobile" class="btnModelo">Mobile</button>-->
                     <button id="heavy" class="btnModelo">Heavy</button>
                     <button id="normal" class="btnModelo">Normal</button>
                     <button id="light" class="btnModelo">Light</button>
@@ -171,8 +172,8 @@
 
            <section id="sequencer-meta-controls" class="flex-column h100 justCenter w100">
                 
-            <section class="box">
-                    <div class="boxHeader" style="flex-basis: 10%;align-content: center;">
+            <section class="box" style="gap:2vh">
+                    <div class="boxHeader">
                         
                         <select id="step-count">
                             <option value="16">16 Passos</option>
@@ -220,7 +221,6 @@
     </main>
 
     <footer class="flex " style="height:3vh">
-
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>

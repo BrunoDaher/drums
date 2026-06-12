@@ -1,6 +1,7 @@
 
 @import url('elems.css');
-@import url('drumsMobile.css');
+/*@import url('drumsMobile.css');*/
+@import url('drums.css');
 @import url('flex.css');
 @import url('input.css');
 @import url('mobile.css');
@@ -18,6 +19,12 @@
     
     }
 
+    .landShow{
+        opacity: 0;
+        @media (orientation: landscape) {
+            opacity: 1;
+        }
+    }
 
     body {
         background: #222;
@@ -79,26 +86,43 @@ aside.on{
     }
 
     .btnModelo{
-            background-size: 14vw;
-            width: 100%;
-            flex:auto;
 
-            font-size: 3vh;
-            background-repeat: no-repeat;
-            background-position: 20vh 0vh;
-            cursor: pointer;
-
-            &#mobile{background-image: url(../imgs/mobile/bumbo.png);}
+         &#mobile{background-image: url(../imgs/mobile/bumbo.png);}
             &#heavy{background-image: url(../imgs/heavy/bumbo.png);}
             &#normal{background-image: url(../imgs/normal/bumbo.png);}
             &#light{background-image: url(../imgs/light/bumbo.png);}
             &#perc{background-image: url(../imgs/perc/bumbo.png);}
+    }
+
+    .btnModelo{
+
+            background-size:45%;
+            
+            width: 100%;
+            flex:auto;
+
+            font-size: 3vh;
+            
+            background-position: -5px;
+            background-repeat: no-repeat;
+            
+
+            transition:  all 1s ;
+
 
 
         &.active{
-            background-position:0vh -2vh;
+
+            background-size:150%;
             color: white;
             text-shadow: 1px 1px 1px black;
+            cursor: pointer;
+
+            background-position: center;
+
+            transition:  all 1s ;
+
+            
         }
     }
 

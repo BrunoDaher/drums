@@ -77,8 +77,6 @@ input.vert::-webkit-slider-thumb {
   background:rgb(109, 50, 192);
   cursor: grab;
   margin-top: 0; 
+  box-shadow: 1px 1px 1px 1px rebeccapurple !important;
   
-  &:focus-visible, &:hover{
-    box-shadow: 1px 1px 1px 1px rebeccapurple !important;
-  }
 }

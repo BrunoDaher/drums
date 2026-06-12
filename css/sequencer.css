@@ -98,13 +98,16 @@
 }
 
  #step-count{
-   outline: none;
-    font-size: 2vh;
+      outline: none;
+    font-size: 3vh;
+    margin-top: 2vh;
     background: rgba(128, 0, 128, 0.373);
     color: white;
     padding: 2vh;
+    width: stretch;
+    height: auto;
     border-radius: 1vh;
     border: none;
-    box-shadow: 1px 2px 15px 2px black;
+    box-shadow: 1px 2px 5px 2px black;
  }  
        
