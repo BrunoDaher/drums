@@ -1,0 +1,99 @@
+
+
+    .drum{
+        display: flex;         /* Permite definir largura e altura */
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden; 
+        user-select: none;
+
+        transition: background 0.2s;
+    }
+
+
+
+    .drum.img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+        
+    }
+    
+    .drum > small{
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: aquamarine;
+
+            &:hover{
+                z-index:10  !important;
+                color: transparent;
+            }
+    }
+
+
+
+    .drum.active{
+       filter: brightness(1.1) saturate(1.4) drop-shadow(1px 1px 7px rgba(255, 0, 0, 0.118));
+       transform:rotate3d(-1, 0, 0, 5deg) scale(0.99);
+    }
+
+
+    .drum:focus-visible
+    {
+        box-shadow: none !important;
+    }
+
+    .drum-kit{
+        width: 100%;
+        background: linear-gradient(45deg, black, #343934);
+            display: grid !important;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            opacity: 1;
+    }
+
+    .drum-kit > span{
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-position: center;
+    }
+
+     #crash{
+
+    }
+
+    #chimbauOp, #chimbau{  
+
+    }
+
+    #caixa{
+    }
+
+    #bumbo{
+    }
+
+    #tom{
+       
+    }
+
+    #surdo{
+      
+    }
+
+    #conducao, #sino{
+        
+    }
+
+    #bloco{
+       
+    }
+
+    #ataque{
+        
+    }

@@ -44,12 +44,6 @@
                 }
             }
 
-            #drumkit{
-                transform:translateX(40vw) translateY(4vh) scale(2.4);
-
-            }
-
-
 
             @media (display-mode: browser) {
                 footer{

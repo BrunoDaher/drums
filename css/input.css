@@ -1,45 +1,4 @@
 
-
-input.vert, input[type="range" i], input[type=range] {
-
-   writing-mode: vertical-lr; 
-  direction: rtl; 
-  -webkit-appearance: none;
-  appearance: none;
-  
-  /* 1. COMPRIMENTO: Define a altura dele em pé na tela */
-  height: 45vh; 
-  
-  /* 2. ESPESSURA DA CAIXA: Deve ser igual ou maior que a ALTURA do botão */
-  width: clamp(1.2vh, 1.8vh, 2vh); 
-  
-  background: #333333;                 
-  outline: none;
-  cursor: grabbing;
-}
-
-/* --- O BOTÃO (FADER) --- */
-
-/* Chrome, Safari e Edge */
-input.vert::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  
-  
-  width: 2em; /* <--- Altere aqui para controlar a largura do fader! */
-  
-  /* 4. ALTURA DO BOTÃO: Define a altura da peça que você arrasta */
-  height: clamp(1.5vh, 2.7vh, 1.4vh); 
-  
-  /* Seus estilos visuais mantidos */
-  
-
-  box-shadow: inset 0px -1px 8px 5px #0e0716;
-  
-  cursor: grab;
-  margin-top: 0; 
-}
-
 .btnMain{
   font-size: 2.5vh;
 }
@@ -49,7 +8,7 @@ input.vert::-webkit-slider-thumb {
 }
 
 
-button{
+#menuBotoes>button{
   
     border-radius: 5px;
 
@@ -57,7 +16,7 @@ button{
       cursor: pointer;
       color: #2ce038;
       
-      transform: translateY(-1px) scale(1.2);
+      transform: translateY(-1px) scale(1.1);
       transition: all 1s;
     }
 }

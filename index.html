@@ -38,9 +38,9 @@
      
     <main class="flex-row justBetween" >
 
-        <article id="equalizer" class="off mainMenu w100 flex-row justAround" aria-label="Equalizador">
+        <article id="equalizer" class="off mainMenu w100 flex-row justCenter" aria-label="Equalizador">
          
-            <section class=" flex-column justCenter">
+            <section class="card">
                 <legend class="bi-graph-up flex-row">Equalizer</legend>
                 <article class="eq-panel flex-row justCenter">
                     
@@ -62,7 +62,7 @@
                 </article>
             </section>
 
-             <section class=" flex-column justCenter">
+             <section class="card">
                 <legend class="bi-graph-up flex-row">Reverb</legend>
                 <article class="eq-panel flex-row justCenter">
                     
@@ -108,10 +108,10 @@
             </aside>
         
             <section id="drumkit" class="off drum-kit flex justCenter" style="
-    z-index: 10;
-    /* background: azure; */
-    opacity: 1;
-">
+                        z-index: 10;
+                        /* background: azure; */
+                        opacity: 1;
+                    ">
                 <span id="caixa" style="/* background-image: url(./imgs/normal/caixa.png); */" class="drum img" data-key="a">
                     <small class="label clip">a ou l</small>
                 </span>
@@ -155,8 +155,9 @@
                 </span>
             </section>
             
-            <aside id="modelos" class="active">
-                <section class="flex-column justCenter" style="gap:5vh">
+            <aside id="modelos" class="active ">
+                <section class=" flex-column justBetween h100">
+                    <button id="mobile" class="btnModelo">Mobile</button>
                     <button id="heavy" class="btnModelo">Heavy</button>
                     <button id="normal" class="btnModelo">Normal</button>
                     <button id="light" class="btnModelo">Light</button>
@@ -168,10 +169,9 @@
 
          <article id="divSequencer" class="off mainMenu flex w100">
 
-           <section id="sequencer-meta-controls" class="flex-column w100">
+           <section id="sequencer-meta-controls" class="flex-column h100 justCenter w100">
                 
-                <section class="h100 flex-column justAround">
-
+            <section class="box">
                     <div class="boxHeader" style="flex-basis: 10%;align-content: center;">
                         
                         <select id="step-count">
@@ -184,20 +184,19 @@
                     </div>
 
                     <div class="boxBody flex-around" style="align-content: center;">
-                        <input class="vert" id="bpm" type="range" min="60" max="220" step="1" value="125" >
+                        <input class="vert" id="bpm" type="range" min="60" max="220" step="1" value="125">
                     </div>
 
                     <div class="boxFooter flex-column" style="/* flex-basis: 10%; */justify-content: center;align-items: center;">
                         
                         <label for="bpm">
-                            <small id="bpmValue">125
-                            </small> 
+                            <small id="bpmValue">120</small> 
                             <small> BPM</small>
                         </label>
-                    </div>
+
 
                     <section id="controlSeq" class="flex-row justAround w100">
-                        <button id="seq" class="eq-button" aria-label="playseq" >
+                        <button id="seq" class="eq-button" aria-label="playseq">
                                 <i class="bi-play-fill"></i>
                             </button>
                             <button id="stop" class="eq-button" aria-label="stopseq">
@@ -206,9 +205,9 @@
                             <button id="clear-grid" class="eq-button" aria-label="reset">
                                 <i class="bi-arrow-counterclockwise"></i>
                         </button>
-                </section>
-
-                </section>
+                    </section>
+                    </div>
+            </section>
 
             </section>
 

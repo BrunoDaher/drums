@@ -1,38 +1,32 @@
 
 
-legend{
-        gap: 1vh;
-    background: #0000004a;
-    padding: 2vh;
-    font-size: 2vh;
-     text-align: start; 
-    justify-content: start;
+#equalizer{
+    align-items:center; 
+    gap: 5vw;
 }
 
-#equalizer{
-    padding: 4vh;
-}
 
 .eq-panel {
     gap: 3vh;
+    padding:2vh;
 }
 
 .eq-band input{
     height: 60vh;
-    padding-block:1vh;
 }
 
 .eq-band {
     
-    height: auto;
+    /* height: auto; */
     display: flex;
-    flex-direction:column-reverse;
-    justify-content: space-around;
+    flex-direction: column-reverse;
+    justify-content: center;
     align-items: center;
+    gap: 2vh;
 
 }
 
-.eq-band label {
+.eq-band label{
     display: block;
     margin-bottom: 3px;
     color: #f0f0f0;
@@ -45,3 +39,46 @@ legend{
 }
 
 
+
+
+
+
+input, input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  appearance: none;
+}
+
+input.vert, input[type=range], input[type="range" i]{
+    
+   writing-mode: vertical-lr; 
+  direction: rtl; 
+  
+  height: 45vh; 
+  width: 2vh;
+  
+  background:linear-gradient(#00000042,#000000);                 
+  outline: none;
+  cursor: grabbing;
+
+  &:focus-visible, &:hover{
+    box-shadow: 0px 1px 10px 1px rebeccapurple !important;
+  }
+}
+
+/* --- O BOTÃO (FADER) --- */
+
+/* Chrome, Safari e Edge */
+input.vert::-webkit-slider-thumb {
+      
+  
+  width: 7vh; 
+  height: 3vh;
+  border-radius: 2px;
+  background:rgb(109, 50, 192);
+  cursor: grab;
+  margin-top: 0; 
+  
+  &:focus-visible, &:hover{
+    box-shadow: 1px 1px 1px 1px rebeccapurple !important;
+  }
+}

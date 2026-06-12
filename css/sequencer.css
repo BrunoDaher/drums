@@ -11,24 +11,25 @@
 
 #sequencer-meta-controls{
     width: 25%;
-    height: 100%;
     align-items: center;
 }
 
 #controlSeq{
-        
+        padding: 2vh;
     align-items: center;
     gap: 2vh;
 }
 
 #controlSeq > button{
-        font-size: 5vh;
+        font-size: 3.5vh;
     align-items: center;
         background: black;
     padding: 2vh;
+    border-radius: 1.5vh;
+    
 
     &:hover{
-        background-color:#00ff88;
+        background-color: #00ff881f;
     }
 }
 
@@ -63,7 +64,7 @@
 
     &>a{
         min-width: 10%;
-        font-size: 1.5vh;
+        font-size: 2vh;
     }
 }
 
@@ -74,21 +75,26 @@
 }
 
 .step {
-    flex: auto;
-    height: 5vh;
-    width: 5.5vh;
-    background:black;
+      
+    background: black;
     border-radius: 1vh;
-    cursor:cell
+    
+    width: 3vw;
+    height: 5vh;
 }
 
 .step.active {  
     background: #00ff88;
+
+    &:hover{
+        background: rgba(216, 37, 37, 0.352);
+    }
 }
 
-.step.current {
-    filter: blur(3px) brightness(4.5) saturate(1.5);
-    background: #15b31538;
+.step.current , .step:hover{
+    
+    background: #a4bba438;
+    cursor: cell;
 }
 
  #step-count{

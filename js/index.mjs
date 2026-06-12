@@ -69,7 +69,7 @@ btnsModelo.forEach(btn => {
     btn.addEventListener('pointerdown', () => {
         btnsModelo.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
-        changeKit(btn.getAttribute('data-target'));
+        changeKit(btn.id);
     });
 });
 
@@ -121,7 +121,7 @@ function setupInputs() {
     // Pads Visuais
    getAll('.clip').forEach(pad => {
         let id= pad.parentElement.id;
-        pad.addEventListener('mousedown', () => playInstrument(id));
+        pad.addEventListener('pointerdown', () => playInstrument(id));
     });
 
     // Controles do Sequenciador

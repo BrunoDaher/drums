@@ -12,9 +12,6 @@ export class UIManager {
             const row = document.createElement('div');
             row.className = 'sequencer-row';
             
-            let ext = path =="normal" ? 'png' : 'png';
-            let src = (`./imgs/${path}/${inst}.${ext}`);
-
             row.innerHTML = `
                 
                 <span class="inst-label w100">
@@ -53,9 +50,11 @@ export class UIManager {
     updateKitVisuals(path, instruments) {
         
         instruments.forEach(inst => {
-            let ext = path =="normal" ? 'png' : 'png';
+            
+            console.log('inst', path)
+
             const el = document.getElementById(inst);
-            if (el) el.style.backgroundImage = `url(./imgs/${path}/${inst}.${ext})`;
+            if (el) el.style.backgroundImage = `url(./imgs/${path}/${inst}.png`;
         });
     }
 }
