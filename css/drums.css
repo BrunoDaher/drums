@@ -1,13 +1,11 @@
-
-
+@media (min-width:1025px)  {
+    
     .drum.img{
         position:absolute;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
     }
-
-    
     
     .drum > small{
             z-index: 3;
@@ -27,7 +25,7 @@
 
      @media (orientation: landscape)  and (max-width:850px) {
             #drumkit{
-                transform:translateX(40vw) translateY(4vh) scale(2.4);
+                transform:translateX(40vw) translateY(4vh) scale(1.8);
             }
      }
 
@@ -157,7 +155,6 @@
         }
     }
 
-
     #conducao, #sino{
         margin-top: -2vh;
         margin-left: 17vh;
@@ -233,4 +230,4 @@
         }
     }
 
- 
+}

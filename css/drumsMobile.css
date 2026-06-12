@@ -1,5 +1,7 @@
 
 
+@media (max-width: 1024px) {
+
     .drum{
         display: flex;         /* Permite definir largura e altura */
         align-items: center;
@@ -16,6 +18,7 @@
     .drum.img{
         height: 100%;
         width: 100%;
+        clip-path: circle(75px);
         object-fit: cover;
         object-position: center;
         filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
@@ -52,8 +55,7 @@
         width: 100%;
         background: linear-gradient(45deg, black, #343934);
             display: grid !important;
-            grid-template-rows: 1fr 1fr 1fr;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             opacity: 1;
     }
 
@@ -97,3 +99,4 @@
     #ataque{
         
     }
+}

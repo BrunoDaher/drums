@@ -1,6 +1,6 @@
 
 @import url('elems.css');
-/*@import url('drumsMobile.css');*/
+@import url('drumsMobile.css');
 @import url('drums.css');
 @import url('flex.css');
 @import url('input.css');
