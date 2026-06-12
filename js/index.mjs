@@ -49,6 +49,11 @@ const btnsModelo = getAll('.btnModelo');
 const btnSeq = getById('seq');
 const btnStop = getById('stop');
 
+let forMobile = 'pointerDown';
+let forDesktop = 'click';
+
+
+
 btnsMain.forEach(btn => {
     btn.addEventListener('pointerdown', () => {
         //self
